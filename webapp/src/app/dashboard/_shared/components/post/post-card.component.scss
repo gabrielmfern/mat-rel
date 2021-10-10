@@ -1,0 +1,14 @@
+.card {
+  width: 100%;
+  overflow-x: hidden;
+
+  * {
+    text-overflow: ellipsis;
+  }
+
+  .card-body {
+    max-height: 120px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+  }
+}

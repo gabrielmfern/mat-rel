@@ -1,0 +1,7 @@
+<div class="form-check w-100">
+  <input type="checkbox" class="form-check-input" [id]="getInputId()" [formControl]="control">
+
+  <label class="form-check-label" [for]="getInputId()" *ngIf="hasLabel()">
+    {{ label }}
+  </label>
+</div>

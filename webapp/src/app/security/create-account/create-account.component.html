@@ -1,0 +1,37 @@
+<div class="container mt-5 d-flex w-100 justify-content-center align-items-center">
+  <div class="card col-12 col-md-7 col-lg-6">
+    <form [formGroup]="createAccountForm" (ngSubmit)="sendForm()" class="card-body w-100">
+      <h3 class="card-title mb-4 mt-1 text-center">Criar Conta</h3>
+
+      <div class="col-12 p-2 d-inline-block">
+        <mrl-control-input
+          [control]="getControl('name')"
+          label="Nome de usuário"
+          placeholder="gabrielmfern"
+        ></mrl-control-input>
+      </div>
+
+      <div class="col-12 p-2 d-inline-block">
+        <mrl-control-input
+          [control]="getControl('email')"
+          label="Email"
+          type="email"
+          placeholder="meu@email.com"
+        ></mrl-control-input>
+      </div>
+
+      <div class="col-12 p-2 d-inline-block">
+        <mrl-control-input
+          [control]="getControl('password')"
+          label="Senha"
+          type="password"
+          placeholder="123456"
+        ></mrl-control-input>
+      </div>
+
+      <div class="form-group mt-3 d-flex">
+        <button type="submit" class="btn btn-primary ms-auto mx-auto">Enviar</button>
+      </div>
+    </form>
+  </div>
+</div>

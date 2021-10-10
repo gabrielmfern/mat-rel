@@ -1,0 +1,14 @@
+<div class="form-group w-100">
+  <label [for]="getInputId()" *ngIf="hasLabel()">
+    {{ label }}
+  </label>
+
+  <textarea
+    class="form-control w-100"
+    [id]="getInputId()"
+    [placeholder]="placeholder"
+    [formControl]="control"
+    [rows]="rows"
+    (focusout)="focusOut.emit($event)"
+  ></textarea>
+</div>

@@ -1,0 +1,43 @@
+<mrl-loader [loading]="loading">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-12 col-md-8 col-sm-6 ms-auto mx-auto">
+        <div class="card">
+          <div class="card-body row">
+            <div class="col-8">
+              <mrl-control-input
+                [control]="searchControl"
+                type="text"
+                (focusOut)="handleSearch()"
+                placeholder="O que você deseja?"
+              ></mrl-control-input>
+            </div>
+            <div class="col-4">
+              <button
+                class="btn btn-success float-end"
+                [routerLink]="['/dashboard/publishing-post']"
+              >
+                Nova publicação
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <ul
+        class="
+          ms-auto
+          mx-auto
+          col-12 col-md-8 col-lg-7
+          post-cards-list
+        "
+        *ngIf="posts.length > 0"
+      >
+        <li>
+          <mrl-post-card *ngFor="let post of posts" [post]="post" (deleteUser)="loadData()"></mrl-post-card>
+        </li>
+      </ul>
+    </div>
+  </div>
+</mrl-loader>

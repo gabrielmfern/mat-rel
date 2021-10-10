@@ -1,0 +1,20 @@
+<mrl-loader [loading]="loading">
+  <div class="container">
+    <div
+      class="card col-12 col-md-10 col-lg-8 ms-auto mx-auto"
+    >
+      <div class="card-header">
+        <h3 class="card-title" [mathjax]="post?.title"></h3>
+      </div>
+      <div class="card-body">
+        <p [mathjax]="post?.text"></p>
+      </div>
+      <div class="card-footer d-flex">
+        <button class="btn btn-info" [routerLink]="['/']">
+          <i class="fa fa-angle-left"></i> Voltar
+        </button>
+        <p class="ms-auto mt-auto mb-auto">{{ post?.user?.name }}</p>
+      </div>
+    </div>
+  </div>
+</mrl-loader>
