@@ -31,6 +31,10 @@ export class AuthService {
     return localStorage.getItem('authentication');
   }
 
+  signOut(): void {
+    localStorage.removeItem('authentication');
+  }
+
   async signUp(
     name: string,
     email: string,
