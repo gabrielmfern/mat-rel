@@ -15,6 +15,7 @@ import { NavbarComponent } from './parts/navbar/navbar.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PublishingPostComponent } from './pages/publishing-post/publishing-post.component';
 import { PostComponent } from './pages/post/post.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { PostComponent } from './pages/post/post.component';
     HomeComponent,
     PublishingPostComponent,
     PostComponent,
+    PerfilComponent
   ],
   providers: [],
   exports: [],
