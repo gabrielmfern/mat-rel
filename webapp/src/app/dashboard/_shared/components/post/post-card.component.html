@@ -19,6 +19,12 @@
         (click)="deletePost()"
         >Deletar</a
       >
+      <a
+        class="btn btn-dark ms-1"
+        *ngIf="isLoggedUserAuthor()"
+        (click)="editPost()"
+        >Editar</a
+      >
     </div>
   </div>
 </mrl-loader>

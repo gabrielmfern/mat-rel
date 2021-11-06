@@ -5,33 +5,34 @@
 
       <div class="col-12 p-2 d-inline-block">
         <mrl-control-input
+          #emailControl
           [control]="getControl('email')"
           label="Email"
           type="email"
+          [customErrorMessage]="{
+            'user-not-found': 'Não existe nenhum usuário com este email!'
+          }"
           placeholder="meu@email.com"
         ></mrl-control-input>
       </div>
 
       <div class="col-12 p-2 d-inline-block">
         <mrl-control-input
+          #passwordControl
           [control]="getControl('password')"
           label="Senha"
           type="password"
+          [customErrorMessage]="{
+            'wrong-password': 'A senha está incorreta!'
+          }"
           placeholder="123456"
         ></mrl-control-input>
-      </div>
-
-      <div class="col-12 p-2 d-inline-block">
-        <mrl-control-check
-          [control]="getControl('acceptTerms')"
-          label="Eu aceito os termos de serviço"
-        ></mrl-control-check>
       </div>
 
       <div class="form-group mt-3 d-flex">
         <a class="link-primary" [routerLink]="['/security/create-account']">Não tem uma conta? Crie uma agora!</a>
 
-        <button type="submit" class="btn btn-primary ms-auto mx-auto" [ngClass]="{ disabled: loginForm.invalid }">Enviar</button>
+        <button type="submit" class="btn btn-primary ms-auto" [ngClass]="{ disabled: loginForm.invalid }">Enviar</button>
       </div>
     </form>
   </div>

@@ -14,15 +14,26 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: HomeComponent
+        component: HomeComponent,
       },
       {
         path: 'perfil',
-        component: PerfilComponent
+        component: PerfilComponent,
       },
+      // {
+      //   path: 'publishing-post',
+      //   component: PublishingPostComponent
+      // },
+      // {
+      //   path: 'publishing-post/:id',
+      //   component: PublishingPostComponent
+      // },
       {
         path: 'publishing-post',
-        component: PublishingPostComponent
+        loadChildren: () =>
+          import('./pages/publishing-post/publishing-post.module').then(
+            (m) => m.PublishingPostModule
+          ),
       },
       {
         path: 'post/:id',

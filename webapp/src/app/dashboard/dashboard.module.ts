@@ -32,7 +32,7 @@ import { PerfilComponent } from './pages/perfil/perfil.component';
     DashboardComponent,
     NavbarComponent,
     HomeComponent,
-    PublishingPostComponent,
+    // PublishingPostComponent,
     PostComponent,
     PerfilComponent
   ],

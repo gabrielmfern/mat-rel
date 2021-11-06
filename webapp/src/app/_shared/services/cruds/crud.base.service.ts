@@ -6,7 +6,7 @@ export abstract class CrudBaseService<T> {
     protected endpoint: string
   ) {}
 
-  private fromObjectToQuery(filterObject: { [key: string]: any }): string {
+  protected fromObjectToQuery(filterObject: { [key: string]: any }): string {
     const keys = Object.keys(filterObject);
     let result = '';
 
@@ -25,10 +25,10 @@ export abstract class CrudBaseService<T> {
 
   async findOne(filter: Partial<T>={}, authorization?: string): Promise<T> {
     const a = await this.api.get<T>(
-      `/cruds/${this.endpoint}${this.fromObjectToQuery(filter)}`,
+      `/cruds/${this.endpoint}/one${this.fromObjectToQuery(filter)}`,
       authorization
     );
-    return a[0];
+    return a;
   }
 
   find(filter: Partial<T>={}, authorization?: string): Promise<T[]> {

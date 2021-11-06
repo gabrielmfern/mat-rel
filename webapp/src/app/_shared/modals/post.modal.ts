@@ -5,6 +5,6 @@ export class Post {
   user: Partial<User>;
   title: string;
   text: string;
-  agree: number;
-  disagree: number;
+  agreed: Partial<User>[];
+  disagreed: Partial<User>[];
 }

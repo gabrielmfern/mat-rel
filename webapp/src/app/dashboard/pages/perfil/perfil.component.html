@@ -15,6 +15,7 @@
         <div class="card-body">
           <div class="col-12 col-md-6 p-2 d-inline-block">
             <mrl-control-input
+              #nameControl
               [control]="getControl('name')"
               label="Nome de usuário"
               placeholder="gabrielmfern"
@@ -23,15 +24,20 @@
 
           <div class="col-12 col-md-6 p-2 d-inline-block">
             <mrl-control-input
+              #emailControl
               [control]="getControl('email')"
               label="Email"
               type="email"
+              [customErrorMessage]="{
+                'user-already-exists': 'Já existe um usuário com este email!'
+              }"
               placeholder="meu@email.com"
             ></mrl-control-input>
           </div>
 
           <div class="col-12 p-2 d-inline-block">
             <mrl-control-input
+              #newPassword
               [control]="getControl('newPassword')"
               label="Nova senha"
               type="password"
@@ -41,9 +47,13 @@
 
           <div class="col-12 p-2 d-inline-block">
             <mrl-control-input
+              #passwordControl
               [control]="getControl('currentPassword')"
               label="Senha atual"
               type="password"
+              [customErrorMessage]="{
+                'wrong-password': 'Esta senha está incorreta!'
+              }"
               placeholder="123456"
             ></mrl-control-input>
           </div>
@@ -62,9 +72,9 @@
           <h1 class="card-title">Meus posts</h1>
         </div>
 
-        <div class="card-body">
+        <div class="card-body row">
           <ul
-            class="ms-auto mx-auto col-12 col-md-8 col-lg-7 post-cards-list"
+            class="mx-auto post-cards-list col-12"
             *ngIf="posts.length > 0"
           >
             <li class="mt-2">

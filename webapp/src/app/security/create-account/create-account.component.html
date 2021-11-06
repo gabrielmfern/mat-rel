@@ -13,9 +13,13 @@
 
       <div class="col-12 p-2 d-inline-block">
         <mrl-control-input
+          #emailControl
           [control]="getControl('email')"
           label="Email"
           type="email"
+          [customErrorMessage]="{
+            'user-already-exists': 'Já existe um usuário com este email!'
+          }"
           placeholder="meu@email.com"
         ></mrl-control-input>
       </div>
@@ -29,8 +33,17 @@
         ></mrl-control-input>
       </div>
 
+      <div class="col-12 p-2 d-inline-block">
+        <mrl-control-check
+          [control]="getControl('acceptTerms')"
+          label="Eu aceito os termos de serviço"
+        ></mrl-control-check>
+      </div>
+
       <div class="form-group mt-3 d-flex">
-        <button type="submit" class="btn btn-primary ms-auto mx-auto">Enviar</button>
+        <a class="link-primary" [routerLink]="['/security/login']">Não tem uma conta? Crie uma agora!</a>
+
+        <button type="submit" class="btn btn-primary ms-auto" [ngClass]="{ disabled: createAccountForm.invalid }">Enviar</button>
       </div>
     </form>
   </div>

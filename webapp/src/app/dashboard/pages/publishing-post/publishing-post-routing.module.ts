@@ -6,6 +6,10 @@ const routes: Routes = [
   {
     path: '',
     component: PublishingPostComponent
+  },
+  {
+    path: ':id',
+    component: PublishingPostComponent
   }
 ]
 

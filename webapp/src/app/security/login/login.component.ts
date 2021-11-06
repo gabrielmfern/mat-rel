@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -6,6 +6,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+
+import { ControlInputComponent } from 'src/app/_shared/mrl-forms/control-input/control-input.component';
 
 import { AuthService } from 'src/app/_shared/services/auth.service';
 
@@ -17,6 +19,12 @@ import { AuthService } from 'src/app/_shared/services/auth.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
+  @ViewChild('emailControl', { read: ControlInputComponent })
+  emailControl: ControlInputComponent;
+
+  @ViewChild('passwordControl', { read: ControlInputComponent })
+  passwordControl: ControlInputComponent;
+
   constructor(
     fb: FormBuilder,
     private auth: AuthService,
@@ -25,7 +33,6 @@ export class LoginComponent implements OnInit {
     this.loginForm = fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      acceptTerms: [false, [Validators.requiredTrue]]
     });
   }
 
@@ -40,17 +47,19 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/']);
     } catch (exception) {
       if (
-        exception.message == 'Não foi encontrado nenhum usuário com este email!'
+        exception.error.message == 'Could not find any user with that email!'
       ) {
         this.loginForm.get('email').setErrors({
           ...this.loginForm.get('email').errors,
           'user-not-found': true,
         });
-      } else if (exception.message == 'A senha está incorreta!') {
+        this.emailControl.setErrorMessageAndValidState();
+      } else if (exception.error.message == 'The password is incorrect!') {
         this.loginForm.get('password').setErrors({
           ...this.loginForm.get('password').errors,
           'wrong-password': true,
         });
+        this.passwordControl.setErrorMessageAndValidState();
       }
     }
   }

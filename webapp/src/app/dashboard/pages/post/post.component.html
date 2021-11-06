@@ -4,7 +4,18 @@
       class="card col-12 col-md-10 col-lg-8 ms-auto mx-auto"
     >
       <div class="card-header">
-        <h3 class="card-title" [mathjax]="post?.title"></h3>
+        <h3 class="card-title d-inline-block" [mathjax]="post?.title"></h3>
+
+        <span class="float-end" *ngIf="!isAuthor">
+          <button class="btn" [ngClass]="{ active: hasAgreed }" (click)="agree()">
+            <i class="fa fa-thumbs-up"></i>
+            {{ post?.agreed?.length }}
+          </button>
+          <button class="btn" [ngClass]="{ active: hasDisagreed }" (click)="disagree()">
+            <i class="fa fa-thumbs-down"></i>
+            {{ post?.disagreed?.length }}
+          </button>
+        </span>
       </div>
       <div class="card-body">
         <p [mathjax]="post?.text"></p>

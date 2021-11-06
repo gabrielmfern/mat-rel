@@ -13,17 +13,38 @@ export class ControlInputComponent implements OnInit {
   @Input() label: string;
   @Input() placeholder: string;
 
+  @Input() customErrorMessage: { [key: string]: string } = {};
+
+  @Input() validate = true;
+
   @Output() focusOut = new EventEmitter<any>();
 
   individualId: string;
+
+  errorMessage = '';
+  valid: boolean;
 
   constructor() {
     this.individualId = Math.random().toString(36).slice(2);
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
+
+  onFocusedOut($event) {
+    this.focusOut.emit($event);
+    if (this.validate) {
+      this.setErrorMessageAndValidState();
+    }
+  }
+
+  setErrorMessageAndValidState() {
+    this.errorMessage = this.getErrorMessage();
+    this.valid = this.isValid();
+  }
 
   getErrorMessage() {
+    if (!this.control.errors) return '';
+
     if (this.control.errors?.required) {
       return 'Este campo é requirido!';
     } else if (this.control.errors?.minlength) {
@@ -34,6 +55,14 @@ export class ControlInputComponent implements OnInit {
       return 'Este campo tem um valor minímo!';
     } else if (this.control.errors?.max) {
       return 'Este campo tem um valor máximo!';
+    }
+
+    const errorKeys = Object.keys(this.customErrorMessage);
+
+    for (let i = 0; i < errorKeys.length; i++) {
+      if (this.control.errors[errorKeys[i]]) {
+        return this.customErrorMessage[errorKeys[i]];
+      }
     }
 
     return 'Existe um problema com este campo!';

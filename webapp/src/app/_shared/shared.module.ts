@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 
-import { LoaderModule } from "./components/loader.module";
+import { LoaderModule } from "./components/loader/loader.module";
 import { CrudsServiceModule } from "./services/cruds/cruds-services.module";
 
 @NgModule({

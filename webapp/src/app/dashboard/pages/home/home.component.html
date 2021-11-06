@@ -1,7 +1,7 @@
 <mrl-loader [loading]="loading">
   <div class="container">
     <div class="row mb-5">
-      <div class="col-12 col-md-8 col-sm-6 ms-auto mx-auto">
+      <div class="col-12 col-md-10 col-lg-9 ms-auto mx-auto">
         <div class="card">
           <div class="card-body row">
             <div class="col-8">
@@ -9,6 +9,7 @@
                 [control]="searchControl"
                 type="text"
                 (focusOut)="handleSearch()"
+                [validate]="false"
                 placeholder="O que você deseja?"
               ></mrl-control-input>
             </div>

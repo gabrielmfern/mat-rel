@@ -9,17 +9,14 @@
     [id]="getInputId()"
     [placeholder]="placeholder"
     [formControl]="control"
-    (focusout)="focusOut.emit($event)"
+    (focusout)="onFocusedOut($event)"
     [ngClass]="{
-      'is-valid': isValid(),
-      'is-invalid': isInvalid()
+      'is-valid': valid === true,
+      'is-invalid': valid === false
     }"
   />
 
-  <!-- <small class="invalid-feedback" *ngIf="isInvalid()">
-    {{ getErrorMessage() }}
-  </small> -->
   <div class="invalid-feedback">
-    {{ getErrorMessage() }}
+    {{ errorMessage }}
   </div>
 </div>

@@ -19,11 +19,10 @@ export class AuthService {
   }
 
   async verifyIfLogged(): Promise<boolean> {
-    const a = await this.api
-      .get<{ valid: boolean; }>(
-        '/security/verify',
-        localStorage.getItem('authentication')
-      );
+    const a = await this.api.get<{ valid: boolean }>(
+      '/security/verify',
+      localStorage.getItem('authentication')
+    );
     return a.valid;
   }
 
@@ -33,6 +32,28 @@ export class AuthService {
 
   signOut(): void {
     localStorage.removeItem('authentication');
+  }
+
+  async updateAccount(
+    name: string,
+    email: string,
+    currentPassword: string,
+    newPassword?: string
+  ): Promise<void | ApiError> {
+    try {
+      await this.api.post<void>(
+        '/security/update-account',
+        {
+          name,
+          email,
+          currentPassword,
+          newPassword,
+        },
+        this.getAuthorization()
+      );
+    } catch (exception) {
+      throw exception;
+    }
   }
 
   async signUp(
@@ -47,7 +68,7 @@ export class AuthService {
         password,
       });
     } catch (exception) {
-      return exception;
+      throw exception;
     }
   }
 
@@ -65,7 +86,7 @@ export class AuthService {
 
       return result.authorization;
     } catch (exception) {
-      return exception;
+      throw exception;
     }
   }
 }
