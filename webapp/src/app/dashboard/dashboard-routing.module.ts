@@ -2,10 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard.component';
-import { HomeComponent } from './pages/home/home.component';
-import { PerfilComponent } from './pages/perfil/perfil.component';
-import { PostComponent } from './pages/post/post.component';
-import { PublishingPostComponent } from './pages/publishing-post/publishing-post.component';
 
 const routes: Routes = [
   {
@@ -14,30 +10,35 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: HomeComponent,
+        redirectTo: '/dashboard/home',
+        pathMatch: 'full',
+      },
+      {
+        path: 'home',
+        loadChildren: () =>
+          import('./pages/home/home.module').then((m) => m.HomeModule),
       },
       {
         path: 'perfil',
-        component: PerfilComponent,
+        loadChildren: () =>
+          import('./pages/perfil/perfil.module').then((m) => m.PerfilModule),
       },
-      // {
-      //   path: 'publishing-post',
-      //   component: PublishingPostComponent
-      // },
-      // {
-      //   path: 'publishing-post/:id',
-      //   component: PublishingPostComponent
-      // },
       {
         path: 'publishing-post',
         loadChildren: () =>
-          import('./pages/publishing-post/publishing-post.module').then(
+          import('./pages/post-related/publishing-post/publishing-post.module').then(
             (m) => m.PublishingPostModule
           ),
       },
       {
         path: 'post/:id',
-        component: PostComponent,
+        loadChildren: () =>
+          import('./pages/post-related/post/post.module').then((m) => m.PostModule),
+      },
+      {
+        path: 'donate',
+        loadChildren: () =>
+          import('./pages/donate/donate.module').then((m) => m.DonateModule),
       },
     ],
   },
