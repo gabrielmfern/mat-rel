@@ -21,7 +21,7 @@ export class PostComponent implements OnInit {
   loggedUser: Partial<User>;
 
   hasAgreed: boolean = false;
-  hasDisagreed: boolean = false;
+  hasDisagreed: boolean = false;s
 
   constructor(
     private route: ActivatedRoute,
@@ -64,20 +64,20 @@ export class PostComponent implements OnInit {
   }
 
   async agree() {
-    if (!this.hasAgreed) {
+    if (!this.hasAgreed && !this.loading) {
       const disagreedIndex = this.post.disagreed.map((u) => u._id).indexOf(this.loggedUser._id);
       if (disagreedIndex > -1) {
         this.post.disagreed.splice(disagreedIndex);
       }
       this.post.agreed.push(this.loggedUser);
+      this.hasAgreed = true;
+      this.hasDisagreed = false;
       await this.postService.agree(
         {
           _id: this.post._id
         },
         this.authService.getAuthorization()
       );
-      this.hasAgreed = true;
-      this.hasDisagreed = false;
       // await this.loadPost(this.post._id);
     }
   }
@@ -89,14 +89,14 @@ export class PostComponent implements OnInit {
         this.post.agreed.splice(agreedIndex);
       }
       this.post.disagreed.push(this.loggedUser);
+      this.hasAgreed = false;
+      this.hasDisagreed = true;
       await this.postService.disagree(
         {
           _id: this.post._id
         },
         this.authService.getAuthorization()
       );
-      this.hasAgreed = false;
-      this.hasDisagreed = true;
       // await this.loadPost(this.post._id);
     }
   }

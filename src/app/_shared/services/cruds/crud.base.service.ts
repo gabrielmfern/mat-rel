@@ -7,10 +7,12 @@ export abstract class CrudBaseService<T> {
     const keys = Object.keys(filterObject);
     let result = '';
 
-    if (keys.length > 0) {
-      result += `?${keys[0]}=${filterObject[keys[0]].toString()}`;
-      keys.slice(1).forEach((i, key) => (result += `&${keys[0]}=${filterObject[keys[0]].toString()}`));
-    }
+    console.log(filterObject);
+
+    keys.forEach((key, i) => {
+      const char = i == 0 ? '?' : '&';
+      result += `${char}${key}=${filterObject[key]}`;
+    });
 
     return result;
   }
@@ -23,8 +25,8 @@ export abstract class CrudBaseService<T> {
     return a;
   }
 
-  find(filter: Partial<T> = {}, authorization?: string): Promise<T[]> {
-    return this.api.get<T[]>(`/cruds/${this.endpoint}${this.fromObjectToQuery(filter)}`, authorization);
+  find<K = T[]>(filter: Partial<T> = {}, authorization?: string): Promise<K> {
+    return this.api.get<K>(`/cruds/${this.endpoint}${this.fromObjectToQuery(filter)}`, authorization);
   }
 
   deleteOne(filter: Partial<T> = {}, authorization?: string): Promise<string> {

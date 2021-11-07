@@ -31,7 +31,7 @@ export class PublishingPostComponent implements OnInit {
     private authService: AuthService
   ) {
     this.postForm = fb.group({
-      title: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(100)]],
+      title: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(60)]],
       text: ['', [Validators.required, Validators.minLength(100)]]
     });
   }

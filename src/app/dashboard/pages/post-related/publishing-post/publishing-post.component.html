@@ -7,25 +7,25 @@
         (ngSubmit)="submitForm()"
       >
         <div class="card-header">
-          <h3 class="card-title">Formulário de uma publicação nova</h3>
+          <h3 class="card-title">New publication</h3>
         </div>
         <div class="card-body">
           <div class="col-12 p-2 d-inline-block">
             <mrl-control-input
               [control]="getControl('title')"
-              label="Título"
+              label="Title"
               type="text"
-              placeholder="Em relação à $\pi(x)$ e $\frac{x}{\ln{x}}$"
+              placeholder="Regarding $\pi(x)$ and $\frac{x}{\ln{x}}$"
             ></mrl-control-input>
           </div>
 
           <div class="col-12 p-2 d-inline-block">
             <mrl-control-textarea
               [control]="getControl('text')"
-              label="Texto"
+              label="Text"
               type="textarea"
               (focusOut)="onTextFocusedOut()"
-              placeholder="Digamos que $\pi(x)$ denota a quantidade de números primos $\leq x$ de tal forma que por exemplo, $\pi(10)=4$ porque existem 4 números primos até 10, que são todos 2, 3, 5, 7..."
+              placeholder="Let $\pi(x)$ denote the amount of prime numbers that are $\leq x$ in such way that for example, $\pi(10)=4$, because there are 4 prime numbers up to 10, that are all 2,3,5,7 [...]"
             ></mrl-control-textarea>
           </div>
 
@@ -34,8 +34,8 @@
           </div>
         </div>
         <div class="card-footer">
-          <button class="btn btn-danger float-start" [routerLink]="['/']">Cancelar</button>
-          <button class="btn btn-outline-dark float-end" [disabled]="postForm.invalid">Enviar</button>
+          <button class="btn btn-danger float-start" [routerLink]="['/']">Cancel</button>
+          <button class="btn btn-outline-dark float-end" [disabled]="postForm.invalid">Send</button>
         </div>
       </form>
     </div>

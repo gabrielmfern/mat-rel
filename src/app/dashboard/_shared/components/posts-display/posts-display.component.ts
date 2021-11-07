@@ -1,34 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, Input, OnInit } from "@angular/core";
 
-import { AuthService } from 'src/app/_shared/services/auth.service';
-import { PostService } from 'src/app/_shared/services/cruds/post.service';
+import { PostService } from "src/app/_shared/services/cruds/post.service";
+import { AuthService } from "src/app/_shared/services/auth.service";
 
-import { Post } from 'src/app/_shared/modals/post.modal';
-import { ActivatedRoute } from '@angular/router';
+import { Post } from "src/app/_shared/modals/post.modal";
 
 @Component({
-  selector: 'mrl-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'mrl-posts-display',
+  templateUrl: './posts-display.component.html',
+  styleUrls: ['./posts-display.component.scss']
 })
-export class HomeComponent implements OnInit {
-  posts: Post[] = [];
-
-  searchControl: FormControl = new FormControl('');
+export class PostsDisplayComponent implements OnInit {
+  @Input() filter: Partial<Post> | any = {};
+  @Input() occupyAllSpace = false;
 
   loading = false;
 
   page = 0;
-  pageAmount = 1;
+  pageAmount = 0;
+  posts: Post[] = [];
 
   constructor(private postService: PostService, private authService: AuthService) {}
 
   ngOnInit() {
-    this.loadData();
+    this.loadPosts();
   }
 
-  loadData() {
+  loadPosts() {
     if (!this.loading) {
       this.loading = true;
       this.postService
@@ -38,7 +36,8 @@ export class HomeComponent implements OnInit {
           pageAmount: number;
         }>(
           {
-            page: this.page
+            page: this.page,
+            ...this.filter
           } as any,
           this.authService.getAuthorization()
         )
@@ -54,19 +53,17 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  handleSearch() {}
-
   nextPage() {
     if (this.page < this.pageAmount - 1) {
       this.page++;
-      this.loadData();
+      this.loadPosts();
     }
   }
 
   lastPage() {
     if (this.page > 0) {
       this.page--;
-      this.loadData();
+      this.loadPosts();
     }
   }
 }

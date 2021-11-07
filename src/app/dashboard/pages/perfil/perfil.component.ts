@@ -3,9 +3,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 
 import { AuthService } from 'src/app/_shared/services/auth.service';
 
-import { Post } from 'src/app/_shared/modals/post.modal';
-import { PostService } from 'src/app/_shared/services/cruds/post.service';
 import { ControlInputComponent } from 'src/app/_shared/mrl-forms/control-input/control-input.component';
+
+import { Post } from 'src/app/_shared/modals/post.modal';
+import { User } from 'src/app/_shared/modals/user.modal';
 
 @Component({
   selector: 'mrl-perfil',
@@ -31,7 +32,9 @@ export class PerfilComponent implements OnInit {
   @ViewChild('newPasswordControl', { read: ControlInputComponent })
   newPasswordControl: ControlInputComponent;
 
-  constructor(private authService: AuthService, fb: FormBuilder, private postService: PostService) {
+  loggedUser: User;
+
+  constructor(public authService: AuthService, fb: FormBuilder) {
     this.minhaContaForm = fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -42,23 +45,12 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit() {
     this.setFormDataBasedOnLoggedUser();
-    this.getAllPostsFromLoggedUser();
-  }
-
-  getAllPostsFromLoggedUser() {
-    let user = this.authService.getLoggedUser();
-    this.loading = true;
-    this.postService
-      .find({}, this.authService.getAuthorization())
-      .then((posts) => posts.filter((post) => post.user._id == user._id))
-      .then((posts) => (this.posts = posts));
-    this.loading = false;
   }
 
   setFormDataBasedOnLoggedUser() {
-    let user = this.authService.getLoggedUser();
-    delete user._id;
-    this.minhaContaForm.patchValue(user);
+    this.loggedUser = this.authService.getLoggedUser();
+    delete this.loggedUser._id;
+    this.minhaContaForm.patchValue(this.loggedUser);
   }
 
   getControl(name: string): FormControl {
