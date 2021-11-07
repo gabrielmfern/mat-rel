@@ -1,0 +1,16 @@
+<mrl-loader [loading]="loading">
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title" [mathjax]="post.title"></h5>
+    </div>
+    <div class="card-body">
+      <p class="card-text" [mathjax]="post.text"></p>
+    </div>
+    <div class="card-footer d-flex">
+      <p class="mt-auto mb-auto">{{ post.user.name }}</p>
+      <a class="btn btn-primary ms-auto" [routerLink]="['/dashboard/post/' + post._id]">Abrir</a>
+      <a class="btn btn-danger ms-1" *ngIf="isLoggedUserAuthor()" (click)="deletePost()">Deletar</a>
+      <a class="btn btn-dark ms-1" *ngIf="isLoggedUserAuthor()" (click)="editPost()">Editar</a>
+    </div>
+  </div>
+</mrl-loader>

@@ -1,0 +1,83 @@
+<mrl-loader [loading]="loading">
+  <div class="container pt-5">
+    <div class="row">
+      <h1>{{ getUsername() }}</h1>
+    </div>
+    <div class="row mt-5">
+      <form class="card col-12 col-md-8 me-auto" [formGroup]="minhaContaForm" (ngSubmit)="sendForm()">
+        <div class="card-header">
+          <h3 class="card-title">Minha conta</h3>
+        </div>
+        <div class="card-body">
+          <div class="col-12 col-md-6 p-2 d-inline-block">
+            <mrl-control-input
+              #nameControl
+              [control]="getControl('name')"
+              label="Nome de usuário"
+              placeholder="gabrielmfern"
+            ></mrl-control-input>
+          </div>
+
+          <div class="col-12 col-md-6 p-2 d-inline-block">
+            <mrl-control-input
+              #emailControl
+              [control]="getControl('email')"
+              label="Email"
+              type="email"
+              [customErrorMessage]="{
+                'user-already-exists': 'Já existe um usuário com este email!'
+              }"
+              placeholder="meu@email.com"
+            ></mrl-control-input>
+          </div>
+
+          <div class="col-12 p-2 d-inline-block">
+            <mrl-control-input
+              #newPassword
+              [control]="getControl('newPassword')"
+              label="Nova senha"
+              type="password"
+              placeholder="123456*"
+            ></mrl-control-input>
+          </div>
+
+          <div class="col-12 p-2 d-inline-block">
+            <mrl-control-input
+              #passwordControl
+              [control]="getControl('currentPassword')"
+              label="Senha atual"
+              type="password"
+              [customErrorMessage]="{
+                'wrong-password': 'Esta senha está incorreta!'
+              }"
+              placeholder="123456"
+            ></mrl-control-input>
+          </div>
+
+          <div class="form-group mt-3 d-flex">
+            <button type="submit" class="btn btn-primary ms-auto">Enviar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="row">
+      <div class="card col-12 col-md-8 me-auto">
+        <div class="card-header">
+          <h1 class="card-title">Meus posts</h1>
+        </div>
+
+        <div class="card-body row">
+          <ul class="mx-auto post-cards-list col-12" *ngIf="posts.length > 0">
+            <li class="mt-2">
+              <mrl-post-card
+                *ngFor="let post of posts"
+                [post]="post"
+                (deleteUser)="loadData()"
+              ></mrl-post-card>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</mrl-loader>
