@@ -7,8 +7,6 @@ export abstract class CrudBaseService<T> {
     const keys = Object.keys(filterObject);
     let result = '';
 
-    console.log(filterObject);
-
     keys.forEach((key, i) => {
       const char = i == 0 ? '?' : '&';
       result += `${char}${key}=${filterObject[key]}`;
