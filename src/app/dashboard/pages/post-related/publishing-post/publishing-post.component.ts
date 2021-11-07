@@ -36,7 +36,7 @@ export class PublishingPostComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.route.params.subscribe(async (params) => {
       if (params.id) {
         this.editing = true;
@@ -63,7 +63,7 @@ export class PublishingPostComponent implements OnInit {
     });
   }
 
-  async submitForm() {
+  public async submitForm() {
     if (this.postForm.valid) {
       const newPost: Partial<Post> = this.postForm.value;
       this.loading = true;
@@ -83,11 +83,11 @@ export class PublishingPostComponent implements OnInit {
     }
   }
 
-  onTextFocusedOut() {
+  public onTextFocusedOut() {
     this.currentDemo = this.getControl('text').value;
   }
 
-  getControl(name: string): FormControl {
+  public getControl(name: string): FormControl {
     return this.postForm.get(name) as FormControl;
   }
 }

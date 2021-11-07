@@ -1,8 +1,6 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { MathjaxModule } from 'mathjax-angular';
 
 import { LoaderModule } from 'src/app/_shared/components/loader/loader.module';
@@ -25,4 +23,4 @@ import { PublishingPostComponent } from './publishing-post.component';
     PublishingPostRoutingModule
   ]
 })
-export class PublishingPostModule {}
+export class PublishingPostModule { }
