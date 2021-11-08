@@ -31,8 +31,8 @@ export abstract class CrudBaseService<T> {
     return this.api.delete<string>(`/cruds/${this.endpoint}${this.fromObjectToQuery(filter)}`, authorization);
   }
 
-  insertOne(object: Partial<T>, authorization?: string): Promise<string> {
-    return this.api.post<string>(`/cruds/${this.endpoint}`, object, authorization);
+  insertOne(object: Partial<T>, authorization?: string): Promise<T> {
+    return this.api.post<T>(`/cruds/${this.endpoint}`, object, authorization);
   }
 
   updateOne(filter: Partial<T> = {}, object: Partial<T>, authorization?: string): Promise<string> {

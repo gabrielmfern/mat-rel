@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { BehaviorSubject } from 'rxjs';
@@ -14,6 +14,8 @@ import { PostService } from 'src/app/_shared/services/cruds/post.service';
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
+  @Input() postId: string;
+
   post: Post;
   loading = false;
   isAuthor: boolean = true;
@@ -21,7 +23,7 @@ export class PostComponent implements OnInit {
   loggedUser: Partial<User>;
 
   hasAgreed: boolean = false;
-  hasDisagreed: boolean = false;s
+  hasDisagreed: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,21 +36,23 @@ export class PostComponent implements OnInit {
     this.loggedUser = this.authService.getLoggedUser();
 
     this.route.params.subscribe(async (params) => {
-      if (!params.id) {
+      if (!params.id && this.postId != '1') {
         this.router.navigate(['/']);
-      } else {
-        this.loading = true;
-        try {
-          await this.loadPost(params.id);
-          this.isAuthor = this.loggedUser._id == this.post.user._id;
-          this.hasAgreed = this.post.agreed.map((u) => u._id).includes(this.loggedUser._id);
-          this.hasDisagreed = this.post.disagreed.map((u) => u._id).includes(this.loggedUser._id);
-        } catch (exception) {
-          console.error(exception);
-          this.router.navigate(['/']);
-        }
-        this.loading = false;
+        return;
       }
+
+      this.loading = true;
+      try {
+        this.postId = params.id;
+        await this.loadPost(params.id);
+        this.isAuthor = this.loggedUser._id == this.post.user._id;
+        this.hasAgreed = this.post.agreed.map((u) => u._id).includes(this.loggedUser._id);
+        this.hasDisagreed = this.post.disagreed.map((u) => u._id).includes(this.loggedUser._id);
+      } catch (exception) {
+        console.error(exception);
+        this.router.navigate(['/']);
+      }
+      this.loading = false;
     });
   }
 

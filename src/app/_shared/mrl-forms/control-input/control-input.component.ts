@@ -46,15 +46,15 @@ export class ControlInputComponent implements OnInit {
     if (!this.control.errors) return '';
 
     if (this.control.errors?.required) {
-      return 'Este campo é requirido!';
+      return 'This field is required!';
     } else if (this.control.errors?.minlength) {
-      return `Este campo precisa de no minímo ${this.control.errors.minlength.requiredLength} caracteres!`;
+      return `This field needs to have at least ${this.control.errors.minlength.requiredLength} characters!`;
     } else if (this.control.errors?.maxlength) {
-      return `Este campo tem um máximo de ${this.control.errors.minlength.requiredLength} caracteres!`;
+      return `This field has a maximum amount of ${this.control.errors.minlength.requiredLength} characters!`;
     } else if (this.control.errors?.min) {
-      return 'Este campo tem um valor minímo!';
+      return 'This field has a minimum value!';
     } else if (this.control.errors?.max) {
-      return 'Este campo tem um valor máximo!';
+      return 'This field has a maximum value!';
     }
 
     const errorKeys = Object.keys(this.customErrorMessage);
@@ -65,9 +65,8 @@ export class ControlInputComponent implements OnInit {
       }
     }
 
-    return 'Existe um problema com este campo!';
+    return 'There is a problem with this field!';
   }
-
   isValid() {
     return this.control.valid;
   }
