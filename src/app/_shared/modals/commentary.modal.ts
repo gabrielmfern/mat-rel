@@ -6,6 +6,4 @@ export class Commentary {
   user: Partial<User>;
   post: Partial<Post>;
   text: string;
-  agreed: Partial<User>[];
-  disagreed: Partial<User>[];
 }

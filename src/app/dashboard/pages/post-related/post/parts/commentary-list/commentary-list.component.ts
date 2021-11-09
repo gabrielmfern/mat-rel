@@ -20,6 +20,8 @@ export class CommentaryListComponent implements OnInit {
   currentPage = 0;
   pageAmount = 1;
 
+  hoveringOnCommentary: Commentary;
+
   commentaryTextControl: FormControl = new FormControl('', [Validators.required]);
 
   constructor(private commentaryService: CommentaryService, private authService: AuthService) {}
@@ -36,8 +38,8 @@ export class CommentaryListComponent implements OnInit {
 
   async loadMoreCommentaries() {
     if (this.currentPage < this.pageAmount) {
+      this.loading = true;
       try {
-        this.loading = true;
         const response = await this.commentaryService.find<{
           records: Commentary[];
           page: number;
@@ -49,7 +51,6 @@ export class CommentaryListComponent implements OnInit {
           } as any,
           this.authService.getAuthorization()
         );
-        this.loading = false;
         this.pageAmount = response.pageAmount;
         if (this.currentPage < this.pageAmount) this.currentPage++;
         this.commentaries.push(...response.records);
@@ -57,18 +58,48 @@ export class CommentaryListComponent implements OnInit {
         console.log(exception);
         this.pageAmount = 0;
       }
+      this.loading = false;
     }
   }
 
+  isHoveringOn(commentary: Commentary): boolean {
+    if (!this.hoveringOnCommentary) return false;
+    return commentary._id == this.hoveringOnCommentary._id;
+  }
+
+  isAuthorOf(commentary: Commentary): boolean {
+    return commentary.user._id == this.authService.getLoggedUser()._id;
+  }
+
   async comment() {
-    const commentary = await this.commentaryService.insertOne(
+    if (this.commentaryTextControl.valid) {
+      this.loading = true;
+      const commentary = await this.commentaryService.insertOne(
+        {
+          postId: this.post._id,
+          text: this.commentaryTextControl.value
+        } as any,
+        this.authService.getAuthorization()
+      );
+      this.loading = false;
+      this.commentaryTextControl.patchValue('');
+
+      this.commentaries.push(commentary);
+    }
+  }
+
+  async deleteCommentary(commentary: Commentary) {
+    this.loading = true;
+    await this.commentaryService.deleteOne(
       {
-        postId: this.post._id,
-        text: this.commentaryTextControl.value
-      } as any,
+        _id: commentary._id
+      },
       this.authService.getAuthorization()
     );
-
-    this.commentaries.push(commentary);
+    this.commentaries.splice(
+      this.commentaries.findIndex((c) => c._id == commentary._id),
+      1
+    );
+    this.loading = false;
   }
 }

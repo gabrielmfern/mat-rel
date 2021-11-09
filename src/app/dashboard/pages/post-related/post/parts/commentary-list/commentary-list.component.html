@@ -1,22 +1,48 @@
-<ul class="list-group">
-  <li class="list-group-item" *ngFor="let commentary of commentaries">
-    <span [mathjax]="commentary.text"></span> - {{ commentary.user.name }}
-  </li>
-  <li class="list-group-item">
-    <div class="row">
-      <div class="col-10">
-        <mrl-control-input
-          [control]="commentaryTextControl"
-          placeholder="I believe your thesis is wrong because [...]"
-          [validate]="false"
-        ></mrl-control-input>
+<mrl-loader [loading]="loading">
+  <ul class="list-group">
+    <li
+      class="list-group-item"
+      *ngFor="let commentary of commentaries"
+      (mouseenter)="hoveringOnCommentary = commentary"
+      (mouseleave)="hoveringOnCommentary = undefined"
+    >
+      <div class="row">
+        <div
+          [ngClass]="{
+            'col-11': isHoveringOn(commentary)
+          }"
+        >
+          <span [mathjax]="commentary.text"></span> - {{ commentary.user.name }}
+        </div>
+        <div class="col-1" *ngIf="isHoveringOn(commentary)">
+          <button class="btn btn-danger btn-delete-commentary" (click)="deleteCommentary(commentary)">
+            Delete
+          </button>
+        </div>
       </div>
-      <div class="col-2">
-        <button class="btn btn-warning mx-auto" (click)="comment()">Comment</button>
+    </li>
+    <button
+      class="list-group-item list-group-item-action"
+      (click)="loadMoreCommentaries()"
+      type="button"
+      *ngIf="currentPage < pageAmount"
+    >
+      Load more...
+    </button>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col-10">
+          <mrl-control-textarea
+            [control]="commentaryTextControl"
+            placeholder="I believe your thesis is wrong because [...]"
+            [rows]="3"
+            [validate]="false"
+          ></mrl-control-textarea>
+        </div>
+        <div class="col-2">
+          <button class="btn btn-warning mx-auto" (click)="comment()">Comment</button>
+        </div>
       </div>
-    </div>
-  </li>
-  <button class="list-group-item list-group-item-action" type="button" *ngIf="currentPage < pageAmount">
-    Load more...
-  </button>
-</ul>
+    </li>
+  </ul>
+</mrl-loader>
