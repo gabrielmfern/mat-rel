@@ -12,7 +12,7 @@
       </li>
     </ul>
   </div>
-  <div class="row justify-content-center align-items-center paginator">
+  <div class="row justify-content-center align-items-center paginator" *ngIf="pageAmount > 0">
     <button class="btn d-inline-flex btn-success" (click)="lastPage()">
       <i class="fa fa-angle-left"></i>
     </button>

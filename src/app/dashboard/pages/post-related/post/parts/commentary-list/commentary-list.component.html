@@ -14,7 +14,7 @@
         >
           <span [mathjax]="commentary.text"></span> - {{ commentary.user.name }}
         </div>
-        <div class="col-1" *ngIf="isHoveringOn(commentary)">
+        <div class="col-1" *ngIf="isHoveringOn(commentary) && isAuthorOf(commentary)">
           <button class="btn btn-danger btn-delete-commentary" (click)="deleteCommentary(commentary)">
             Delete
           </button>
