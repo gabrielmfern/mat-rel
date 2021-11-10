@@ -17,7 +17,9 @@ export class PublishingPostComponent implements OnInit {
 
   postForm: FormGroup;
 
-  currentDemo: string = '';
+  previewTitle: string = 'Regarding $\\pi(x)$ and $\\frac{x}{ln{x}}$';
+  previewText: string =
+    'Let $\\pi(x)$ denote the amount of prime numbers that are $\\leq x$ in such way that for example, $\\pi(10)=4$, because there are 4 prime numbers up to 10, that are all 2,3,5,7 [...]';
 
   editing = false;
   editingId: string;
@@ -31,8 +33,14 @@ export class PublishingPostComponent implements OnInit {
     private authService: AuthService
   ) {
     this.postForm = fb.group({
-      title: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(60)]],
-      text: ['', [Validators.required, Validators.minLength(100)]]
+      title: [
+        'Regarding $\\pi(x)$ and $\\frac{x}{\\ln{x}}$',
+        [Validators.required, Validators.minLength(12), Validators.maxLength(60)]
+      ],
+      text: [
+        'Let $\\pi(x)$ denote the amount of prime numbers that are $\\leq x$ in such way that for example, $\\pi(10)=4$, because there are 4 prime numbers up to 10, that are all 2,3,5,7 [...]',
+        [Validators.required, Validators.minLength(100)]
+      ]
     });
   }
 
@@ -84,7 +92,11 @@ export class PublishingPostComponent implements OnInit {
   }
 
   public onTextFocusedOut() {
-    this.currentDemo = this.getControl('text').value;
+    this.previewText = this.getControl('text').value;
+  }
+
+  public onTitlteFocusedOut() {
+    this.previewTitle = this.getControl('title').value;
   }
 
   public getControl(name: string): FormControl {

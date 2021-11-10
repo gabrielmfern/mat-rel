@@ -2,41 +2,57 @@
   <div class="container">
     <div class="row">
       <form
-        class="card col-12 col-md-10 col-lg-9 col-xl-8 ms-auto mx-auto"
+        class="card col-12 col-md-10 col-lg-9 col-xl-8 ms-auto mx-auto form-card pb-2"
         [formGroup]="postForm"
         (ngSubmit)="submitForm()"
       >
-        <div class="card-header">
-          <h3 class="card-title">New publication</h3>
-        </div>
-        <div class="card-body">
-          <div class="col-12 p-2 d-inline-block">
-            <mrl-control-input
-              [control]="getControl('title')"
-              label="Title"
-              type="text"
-              placeholder="Regarding $\pi(x)$ and $\frac{x}{\ln{x}}$"
-            ></mrl-control-input>
-          </div>
+        <ul ngbNav #nav="ngbNav" class="nav-tabs">
+          <li ngbNavItem>
+            <a ngbNavLink>Edit</a>
+            <ng-template ngbNavContent>
+              <div class="card-header">
+                <h3 class="card-title">New publication</h3>
+              </div>
+              <div class="card-body">
+                <div class="col-12 p-2 d-inline-block">
+                  <mrl-control-input
+                    [control]="getControl('title')"
+                    label="Title"
+                    type="text"
+                    (focusOut)="onTitlteFocusedOut()"
+                    placeholder="Regarding $\pi(x)$ and $\frac{x}{\ln{x}}$"
+                  ></mrl-control-input>
+                </div>
 
-          <div class="col-12 p-2 d-inline-block">
-            <mrl-control-textarea
-              [control]="getControl('text')"
-              label="Text"
-              type="textarea"
-              (focusOut)="onTextFocusedOut()"
-              placeholder="Let $\pi(x)$ denote the amount of prime numbers that are $\leq x$ in such way that for example, $\pi(10)=4$, because there are 4 prime numbers up to 10, that are all 2,3,5,7 [...]"
-            ></mrl-control-textarea>
-          </div>
-
-          <div class="col-12 p-2 d-inline-block">
-            <p [mathjax]="currentDemo"></p>
-          </div>
-        </div>
-        <div class="card-footer">
-          <button class="btn btn-danger float-start" [routerLink]="['/']">Cancel</button>
-          <button class="btn btn-outline-dark float-end" [disabled]="postForm.invalid">Send</button>
-        </div>
+                <div class="col-12 p-2 d-inline-block">
+                  <mrl-control-textarea
+                    [control]="getControl('text')"
+                    label="Text"
+                    type="textarea"
+                    (focusOut)="onTextFocusedOut()"
+                    placeholder="Let $\pi(x)$ denote the amount of prime numbers that are $\leq x$ in such way that for example, $\pi(10)=4$, because there are 4 prime numbers up to 10, that are all 2,3,5,7 [...]"
+                  ></mrl-control-textarea>
+                </div>
+              </div>
+              <div class="card-footer">
+                <button class="btn btn-danger float-start" [routerLink]="['/']">Cancel</button>
+                <button class="btn btn-outline-dark float-end" [disabled]="postForm.invalid">Send</button>
+              </div>
+            </ng-template>
+          </li>
+          <li ngbNavItem>
+            <a ngbNavLink>Preview</a>
+            <ng-template ngbNavContent>
+              <div class="card-header">
+                <h3 class="card-title" [mathjax]="previewTitle"></h3>
+              </div>
+              <div class="card-body">
+                <p [mathjax]="previewText"></p>
+              </div>
+            </ng-template>
+          </li>
+        </ul>
+        <div [ngbNavOutlet]="nav"></div>
       </form>
     </div>
   </div>

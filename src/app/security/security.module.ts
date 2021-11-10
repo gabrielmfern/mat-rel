@@ -7,9 +7,10 @@ import { CreateAccountComponent } from './create-account/create-account.componen
 import { CommonModule } from '@angular/common';
 
 import { MrlFormModule } from '../_shared/mrl-forms/mrl-forms.module';
+import { LoaderModule } from '../_shared/components/loader/loader.module';
 
 @NgModule({
-  imports: [CommonModule, MrlFormModule, SecurityRoutingModule],
+  imports: [CommonModule, MrlFormModule, SecurityRoutingModule, LoaderModule],
   declarations: [LoginComponent, CreateAccountComponent],
   providers: []
 })

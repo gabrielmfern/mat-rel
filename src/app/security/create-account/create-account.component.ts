@@ -16,6 +16,8 @@ export class CreateAccountComponent implements OnInit {
   @ViewChild('emailControl', { read: ControlInputComponent })
   emailControl: ControlInputComponent;
 
+  loading = false;
+
   constructor(fb: FormBuilder, private auth: AuthService, private router: Router) {
     this.createAccountForm = fb.group({
       name: ['', [Validators.required]],
@@ -30,9 +32,12 @@ export class CreateAccountComponent implements OnInit {
   async sendForm() {
     const { name, email, password } = this.createAccountForm.value;
     try {
+      this.loading = true;
       await this.auth.signUp(name, email, password);
+      this.loading = false;
       this.router.navigate(['/security/login']);
     } catch (exception) {
+      this.loading = false;
       if (exception.error.message == 'There already exists a user with that email!') {
         this.createAccountForm.get('email').setErrors({
           ...this.createAccountForm.get('email').errors,

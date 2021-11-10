@@ -20,6 +20,8 @@ export class LoginComponent implements OnInit {
   @ViewChild('passwordControl', { read: ControlInputComponent })
   passwordControl: ControlInputComponent;
 
+  loading = false;
+
   constructor(fb: FormBuilder, private auth: AuthService, private router: Router) {
     this.loginForm = fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -34,9 +36,12 @@ export class LoginComponent implements OnInit {
 
     const { email, password } = this.loginForm.value;
     try {
+      this.loading = true;
       await this.auth.signIn(email, password);
       this.router.navigate(['/']);
+      this.loading = false;
     } catch (exception) {
+      this.loading = false;
       if (exception.error.message == 'Could not find any user with that email!') {
         this.loginForm.get('email').setErrors({
           ...this.loginForm.get('email').errors,
