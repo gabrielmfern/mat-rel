@@ -48,7 +48,7 @@ export class ControlTextareaComponent implements OnInit {
     } else if (this.control.errors?.minlength) {
       return `This field needs to have at least ${this.control.errors.minlength.requiredLength} characters!`;
     } else if (this.control.errors?.maxlength) {
-      return `This field has a maximum amount of ${this.control.errors.minlength.requiredLength} characters!`;
+      return `This field has a maximum amount of ${this.control.errors.manlength.requiredLength} characters!`;
     } else if (this.control.errors?.min) {
       return 'This field has a minimum value!';
     } else if (this.control.errors?.max) {

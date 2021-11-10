@@ -9,7 +9,7 @@
     </li>
   </ul>
   <div class="ms-auto mx-5" ngbDropdown>
-    <ng-container *ngIf="isLoggedIn">
+    <ng-container *ngIf="this.authService.isLoggedIn">
       <button class="btn btn-dark" ngbDropdownToggle>{{ getUsername() }}</button>
       <div ngbDropdownMenu>
         <button ngbDropdownItem [routerLink]="['/perfil']">Profile</button>
@@ -17,7 +17,7 @@
       </div>
     </ng-container>
 
-    <ng-container *ngIf="!isLoggedIn">
+    <ng-container *ngIf="!this.authService.isLoggedIn">
       <button class="btn btn-primary mx-1" [routerLink]="['/security/create-account']">Sign up</button>
       <button class="btn btn-outline-primary" [routerLink]="['/security/login']">Sign In</button>
     </ng-container>

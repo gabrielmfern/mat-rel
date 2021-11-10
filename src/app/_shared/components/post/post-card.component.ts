@@ -20,18 +20,15 @@ export class PostCardComponent implements OnInit {
   loggedUser: User;
   loading = false;
 
-  constructor(private router: Router, private authService: AuthService, private postService: PostService) {}
-
-  loggedIn = false;
+  constructor(private router: Router, public authService: AuthService, private postService: PostService) {}
 
   async ngOnInit() {
-    this.loggedIn = await this.authService.verifyIfLogged();
-    if (this.loggedIn)
+    if (this.authService.isLoggedIn)
       this.loggedUser = this.authService.getLoggedUser();
   }
 
   editPost() {
-    this.router.navigate([`/dashboard/publishing-post/${this.post._id}`]);
+    this.router.navigate([`/publishing-post/${this.post._id}`]);
   }
 
   async deletePost(): Promise<void> {
@@ -50,7 +47,7 @@ export class PostCardComponent implements OnInit {
   }
 
   isLoggedUserAuthor(): boolean {
-    if (!this.loggedIn) return false;
+    if (!this.authService.isLoggedIn) return false;
     return this.post.user._id == this.loggedUser._id;
   }
 }

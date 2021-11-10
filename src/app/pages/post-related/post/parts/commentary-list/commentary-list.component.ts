@@ -24,13 +24,9 @@ export class CommentaryListComponent implements OnInit {
 
   commentaryTextControl: FormControl = new FormControl('', [Validators.required]);
 
-  isLoggedIn = false;
-
-  constructor(private commentaryService: CommentaryService, private authService: AuthService) {}
+  constructor(private commentaryService: CommentaryService, public authService: AuthService) {}
 
   async ngOnInit() {
-    this.isLoggedIn = this.authService.isLoggedIn
-
     if (this.post) {
       this.loadMoreCommentaries();
     } else {
@@ -52,8 +48,7 @@ export class CommentaryListComponent implements OnInit {
           {
             'post._id': this.post._id,
             page: this.currentPage
-          } as any,
-          this.authService.getAuthorization()
+          } as any
         );
         this.pageAmount = response.pageAmount;
         if (this.currentPage < this.pageAmount) this.currentPage++;
@@ -72,7 +67,7 @@ export class CommentaryListComponent implements OnInit {
   }
 
   isAuthorOf(commentary: Commentary): boolean {
-    if (!this.isLoggedIn) return false;
+    if (!this.authService.isLoggedIn) return false;
     return commentary.user._id == this.authService.getLoggedUser()._id;
   }
 

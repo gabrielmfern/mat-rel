@@ -20,12 +20,9 @@ export class PostsDisplayComponent implements OnInit {
   pageAmount = 0;
   posts: Post[] = [];
 
-  isLoggedIn = false;
-
-  constructor(private postService: PostService, private authService: AuthService) {}
+  constructor(public postService: PostService) {}
 
   async ngOnInit() {
-    this.isLoggedIn = this.authService.isLoggedIn
     this.loadPosts();
   }
 

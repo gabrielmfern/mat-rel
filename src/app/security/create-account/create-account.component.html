@@ -7,7 +7,7 @@
         <div class="col-12 p-2 d-inline-block">
           <mrl-control-input
             [control]="getControl('name')"
-            label="Nome de usuário"
+            label="Username"
             placeholder="gabrielmfern"
           ></mrl-control-input>
         </div>
@@ -19,7 +19,7 @@
             label="Email"
             type="email"
             [customErrorMessage]="{
-              'user-already-exists': 'Já existe um usuário com este email!'
+              'user-already-exists': 'There already exists a user with this email!'
             }"
             placeholder="meu@email.com"
           ></mrl-control-input>
@@ -28,7 +28,7 @@
         <div class="col-12 p-2 d-inline-block">
           <mrl-control-input
             [control]="getControl('password')"
-            label="Senha"
+            label="Password"
             type="password"
             placeholder="123456"
           ></mrl-control-input>
@@ -37,7 +37,7 @@
         <div class="col-12 p-2 d-inline-block">
           <mrl-control-check
             [control]="getControl('acceptTerms')"
-            label="Eu aceito os termos de serviço"
+            label="I accept the terms of service"
           ></mrl-control-check>
         </div>
 
@@ -49,7 +49,7 @@
             class="btn btn-primary ms-auto"
             [ngClass]="{ disabled: createAccountForm.invalid }"
           >
-            Criar conta
+            Sign Up
           </button>
         </div>
       </form>

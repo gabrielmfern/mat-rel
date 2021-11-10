@@ -24,18 +24,15 @@ export class PostComponent implements OnInit {
   hasAgreed: boolean = false;
   hasDisagreed: boolean = false;
 
-  isLoggedIn = false;
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private postService: PostService,
-    private authService: AuthService
+    public authService: AuthService
   ) {}
 
   async ngOnInit() {
-    this.isLoggedIn = this.authService.isLoggedIn;
-    if (this.isLoggedIn) this.loggedUser = this.authService.getLoggedUser();
+    if (this.authService.isLoggedIn) this.loggedUser = this.authService.getLoggedUser();
 
     this.route.params.subscribe(async (params) => {
       if (!params.id && this.postId != '1') {
@@ -47,7 +44,7 @@ export class PostComponent implements OnInit {
       try {
         this.postId = params.id;
         await this.loadPost(params.id);
-        if (this.isLoggedIn) {
+        if (this.authService.isLoggedIn) {
           this.isAuthor = this.loggedUser?._id == this.post.user._id;
           this.hasAgreed = this.post.agreed.map((u) => u._id).includes(this.loggedUser._id);
           this.hasDisagreed = this.post.disagreed.map((u) => u._id).includes(this.loggedUser?._id);

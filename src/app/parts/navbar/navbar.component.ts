@@ -9,13 +9,9 @@ import { AuthService } from 'src/app/_shared/services/auth.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  isLoggedIn = false;
+  constructor(public authService: AuthService, private router: Router) {}
 
-  constructor(private authService: AuthService, private router: Router) {}
-
-  async ngOnInit() {
-    this.isLoggedIn = this.authService.isLoggedIn
-  }
+  async ngOnInit() { }
 
   logout() {
     this.authService.signOut();
@@ -24,7 +20,7 @@ export class NavbarComponent implements OnInit {
   }
 
   getUsername() {
-    if (!this.isLoggedIn) return '';
+    if (!this.authService.isLoggedIn) return '';
     return this.authService.getLoggedUser().name;
   }
 }
