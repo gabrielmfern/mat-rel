@@ -34,7 +34,7 @@ export class PostComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.isLoggedIn = await this.authService.verifyIfLogged();
+    this.isLoggedIn = this.authService.isLoggedIn;
     if (this.isLoggedIn) this.loggedUser = this.authService.getLoggedUser();
 
     this.route.params.subscribe(async (params) => {
