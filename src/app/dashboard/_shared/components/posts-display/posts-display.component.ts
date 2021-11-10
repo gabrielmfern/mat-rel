@@ -26,6 +26,14 @@ export class PostsDisplayComponent implements OnInit {
     this.loadPosts();
   }
 
+  reload() {
+    if (!this.loading) {
+      this.posts = [];
+      this.page = 0;
+      this.loadPosts();
+    }
+  }
+
   loadPosts() {
     if (!this.loading) {
       this.loading = true;
@@ -42,7 +50,7 @@ export class PostsDisplayComponent implements OnInit {
           this.authService.getAuthorization()
         )
         .then((result) => {
-          this.posts = result.records;
+          this.posts.push(...result.records);
           this.pageAmount = result.pageAmount;
           this.loading = false;
         })
@@ -53,16 +61,9 @@ export class PostsDisplayComponent implements OnInit {
     }
   }
 
-  nextPage() {
+  loadMore() {
     if (this.page < this.pageAmount - 1) {
       this.page++;
-      this.loadPosts();
-    }
-  }
-
-  lastPage() {
-    if (this.page > 0) {
-      this.page--;
       this.loadPosts();
     }
   }

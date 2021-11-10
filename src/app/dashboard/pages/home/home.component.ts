@@ -1,11 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { AuthService } from 'src/app/_shared/services/auth.service';
-import { PostService } from 'src/app/_shared/services/cruds/post.service';
-
-import { Post } from 'src/app/_shared/modals/post.modal';
 import { ActivatedRoute } from '@angular/router';
+import { PostsDisplayComponent } from '../../_shared/components/posts-display/posts-display.component';
 
 @Component({
   selector: 'mrl-home',
@@ -13,11 +10,22 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('postsDisplay', { read: PostsDisplayComponent }) postsDisplay: PostsDisplayComponent;
+
   searchControl: FormControl = new FormControl('');
+  lastSearchText = '';
 
   constructor() {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
-  handleSearch() {}
+  handleSearch() {
+    if (this.searchControl.value != this.lastSearchText) {
+      this.postsDisplay.filter = {
+        search: this.searchControl.value
+      };
+      this.postsDisplay.reload();
+      this.lastSearchText = this.searchControl.value;
+    }
+  }
 }
