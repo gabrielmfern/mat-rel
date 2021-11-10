@@ -61,6 +61,8 @@ export class PublishingPostComponent implements OnInit {
             title: this.editingPost.title,
             text: this.editingPost.text
           });
+          this.previewTitle = this.editingPost.title;
+          this.previewText = this.editingPost.text;
           this.onTextFocusedOut();
         } catch (exception) {
           console.error(exception);
