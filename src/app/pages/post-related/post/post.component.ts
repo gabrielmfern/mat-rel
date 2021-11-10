@@ -1,12 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { BehaviorSubject } from 'rxjs';
+import { AuthService } from 'src/app/_shared/services/auth.service';
+import { PostService } from 'src/app/_shared/services/cruds/post.service';
 
 import { Post } from 'src/app/_shared/modals/post.modal';
 import { User } from 'src/app/_shared/modals/user.modal';
-import { AuthService } from 'src/app/_shared/services/auth.service';
-import { PostService } from 'src/app/_shared/services/cruds/post.service';
 
 @Component({
   selector: 'mrl-post',
@@ -25,6 +24,8 @@ export class PostComponent implements OnInit {
   hasAgreed: boolean = false;
   hasDisagreed: boolean = false;
 
+  isLoggedIn = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -32,8 +33,9 @@ export class PostComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit() {
-    this.loggedUser = this.authService.getLoggedUser();
+  async ngOnInit() {
+    this.isLoggedIn = await this.authService.verifyIfLogged();
+    if (this.isLoggedIn) this.loggedUser = this.authService.getLoggedUser();
 
     this.route.params.subscribe(async (params) => {
       if (!params.id && this.postId != '1') {
@@ -45,9 +47,11 @@ export class PostComponent implements OnInit {
       try {
         this.postId = params.id;
         await this.loadPost(params.id);
-        this.isAuthor = this.loggedUser._id == this.post.user._id;
-        this.hasAgreed = this.post.agreed.map((u) => u._id).includes(this.loggedUser._id);
-        this.hasDisagreed = this.post.disagreed.map((u) => u._id).includes(this.loggedUser._id);
+        if (this.isLoggedIn) {
+          this.isAuthor = this.loggedUser?._id == this.post.user._id;
+          this.hasAgreed = this.post.agreed.map((u) => u._id).includes(this.loggedUser._id);
+          this.hasDisagreed = this.post.disagreed.map((u) => u._id).includes(this.loggedUser?._id);
+        }
       } catch (exception) {
         console.error(exception);
         this.router.navigate(['/']);
@@ -61,8 +65,7 @@ export class PostComponent implements OnInit {
     this.post = await this.postService.findOne(
       {
         _id: id
-      },
-      this.authService.getAuthorization()
+      }
     );
     this.loading = false;
   }

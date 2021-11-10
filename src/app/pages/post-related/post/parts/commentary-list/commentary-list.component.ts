@@ -24,9 +24,13 @@ export class CommentaryListComponent implements OnInit {
 
   commentaryTextControl: FormControl = new FormControl('', [Validators.required]);
 
+  isLoggedIn = false;
+
   constructor(private commentaryService: CommentaryService, private authService: AuthService) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.isLoggedIn = await this.authService.verifyIfLogged();
+
     if (this.post) {
       this.loadMoreCommentaries();
     } else {
@@ -68,6 +72,7 @@ export class CommentaryListComponent implements OnInit {
   }
 
   isAuthorOf(commentary: Commentary): boolean {
+    if (!this.isLoggedIn) return false;
     return commentary.user._id == this.authService.getLoggedUser()._id;
   }
 
@@ -89,17 +94,19 @@ export class CommentaryListComponent implements OnInit {
   }
 
   async deleteCommentary(commentary: Commentary) {
-    this.loading = true;
-    await this.commentaryService.deleteOne(
-      {
-        _id: commentary._id
-      },
-      this.authService.getAuthorization()
-    );
-    this.commentaries.splice(
-      this.commentaries.findIndex((c) => c._id == commentary._id),
-      1
-    );
-    this.loading = false;
+    if (confirm('Are you sure you want to delete this commentary?')) {
+      this.loading = true;
+      await this.commentaryService.deleteOne(
+        {
+          _id: commentary._id
+        },
+        this.authService.getAuthorization()
+      );
+      this.commentaries.splice(
+        this.commentaries.findIndex((c) => c._id == commentary._id),
+        1
+      );
+      this.loading = false;
+    }
   }
 }

@@ -15,9 +15,9 @@
           <span [mathjax]="commentary.text"></span> - {{ commentary.user.name }}
         </div>
         <div class="col-1" *ngIf="isHoveringOn(commentary) && isAuthorOf(commentary)">
-          <button class="btn btn-danger btn-delete-commentary" (click)="deleteCommentary(commentary)">
+          <a class="delete-commentary c-pointer" (click)="deleteCommentary(commentary)">
             Delete
-          </button>
+          </a>
         </div>
       </div>
     </li>
@@ -29,7 +29,7 @@
     >
       Load more...
     </button>
-    <li class="list-group-item">
+    <li class="list-group-item" *ngIf="isLoggedIn">
       <div class="row">
         <div class="col-10">
           <mrl-control-textarea

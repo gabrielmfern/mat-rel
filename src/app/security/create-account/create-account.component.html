@@ -1,8 +1,8 @@
 <mrl-loader [loading]="loading">
-  <div class="container mt-5 d-flex w-100 justify-content-center align-items-center">
+  <div class="container d-flex w-100 h-75 justify-content-center align-items-center">
     <div class="card col-12 col-md-7 col-lg-6">
       <form [formGroup]="createAccountForm" (ngSubmit)="sendForm()" class="card-body w-100">
-        <h3 class="card-title mb-4 mt-1 text-center">Criar Conta</h3>
+        <h3 class="card-title mb-4 mt-1 text-center">Create account</h3>
 
         <div class="col-12 p-2 d-inline-block">
           <mrl-control-input
@@ -42,14 +42,14 @@
         </div>
 
         <div class="form-group mt-3 d-flex">
-          <a class="link-primary" [routerLink]="['/security/login']">Não tem uma conta? Crie uma agora!</a>
+          <a class="link-primary" [routerLink]="['/security/login']">Already have a account? Login here!</a>
 
           <button
             type="submit"
             class="btn btn-primary ms-auto"
             [ngClass]="{ disabled: createAccountForm.invalid }"
           >
-            Enviar
+            Criar conta
           </button>
         </div>
       </form>

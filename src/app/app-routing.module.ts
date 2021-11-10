@@ -8,12 +8,30 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: '/dashboard/home'
+    redirectTo: '/home'
   },
   {
-    path: 'dashboard',
-    loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
-    canActivate: [LoggedInGuard]
+    path: 'home',
+    loadChildren: () => import('./pages/home/home.module').then((m) => m.HomeModule)
+  },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./pages/perfil/perfil.module').then((m) => m.PerfilModule)
+  },
+  {
+    path: 'publishing-post',
+    loadChildren: () =>
+      import('./pages/post-related/publishing-post/publishing-post.module').then(
+        (m) => m.PublishingPostModule
+      )
+  },
+  {
+    path: 'post/:id',
+    loadChildren: () => import('./pages/post-related/post/post.module').then((m) => m.PostModule)
+  },
+  {
+    path: 'donate',
+    loadChildren: () => import('./pages/donate/donate.module').then((m) => m.DonateModule)
   },
   {
     path: 'security',

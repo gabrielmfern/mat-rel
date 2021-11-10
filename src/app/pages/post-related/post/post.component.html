@@ -3,7 +3,7 @@
     <div class="card-header">
       <h3 class="card-title d-inline-block" [mathjax]="post?.title"></h3>
 
-      <span class="float-end" *ngIf="!isAuthor">
+      <span class="float-end" *ngIf="!isAuthor && isLoggedIn">
         <button class="btn" [ngClass]="{ active: hasAgreed }" (click)="agree()">
           <i class="fa fa-thumbs-up"></i>
           {{ post?.agreed?.length }}

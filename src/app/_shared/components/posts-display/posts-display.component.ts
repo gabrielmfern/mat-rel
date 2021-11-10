@@ -20,9 +20,12 @@ export class PostsDisplayComponent implements OnInit {
   pageAmount = 0;
   posts: Post[] = [];
 
+  isLoggedIn = false;
+
   constructor(private postService: PostService, private authService: AuthService) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.isLoggedIn = await this.authService.verifyIfLogged();
     this.loadPosts();
   }
 
@@ -46,8 +49,7 @@ export class PostsDisplayComponent implements OnInit {
           {
             page: this.page,
             ...this.filter
-          } as any,
-          this.authService.getAuthorization()
+          } as any
         )
         .then((result) => {
           this.posts.push(...result.records);
