@@ -16,14 +16,16 @@ const routes: Routes = [
   },
   {
     path: 'perfil',
-    loadChildren: () => import('./pages/perfil/perfil.module').then((m) => m.PerfilModule)
+    loadChildren: () => import('./pages/perfil/perfil.module').then((m) => m.PerfilModule),
+    canActivate: [LoggedInGuard]
   },
   {
     path: 'publishing-post',
     loadChildren: () =>
       import('./pages/post-related/publishing-post/publishing-post.module').then(
         (m) => m.PublishingPostModule
-      )
+      ),
+    canActivate: [LoggedInGuard]
   },
   {
     path: 'post/:id',

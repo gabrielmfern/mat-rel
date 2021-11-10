@@ -29,7 +29,7 @@ export class CommentaryListComponent implements OnInit {
   constructor(private commentaryService: CommentaryService, private authService: AuthService) {}
 
   async ngOnInit() {
-    this.isLoggedIn = await this.authService.verifyIfLogged();
+    this.isLoggedIn = this.authService.isLoggedIn
 
     if (this.post) {
       this.loadMoreCommentaries();

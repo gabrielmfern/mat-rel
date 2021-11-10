@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/_shared/services/auth.service';
 import { PostsDisplayComponent } from '../../_shared/components/posts-display/posts-display.component';
 
 @Component({
@@ -15,7 +16,7 @@ export class HomeComponent implements OnInit {
   searchControl: FormControl = new FormControl('');
   lastSearchText = '';
 
-  constructor() {}
+  constructor(public authService: AuthService) {}
 
   ngOnInit() {}
 

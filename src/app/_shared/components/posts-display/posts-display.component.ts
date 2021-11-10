@@ -25,7 +25,7 @@ export class PostsDisplayComponent implements OnInit {
   constructor(private postService: PostService, private authService: AuthService) {}
 
   async ngOnInit() {
-    this.isLoggedIn = await this.authService.verifyIfLogged();
+    this.isLoggedIn = this.authService.isLoggedIn
     this.loadPosts();
   }
 

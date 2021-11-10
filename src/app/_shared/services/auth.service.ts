@@ -12,7 +12,13 @@ import { ApiService } from './api.service';
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private api: ApiService) {}
+  isLoggedIn = false;
+
+  constructor(private api: ApiService) {
+    this.verifyIfLogged().then(result => {
+      this.isLoggedIn = result;
+    });
+  }
 
   getLoggedUser(): User {
     return jwtDecode(localStorage.getItem('authentication'));
