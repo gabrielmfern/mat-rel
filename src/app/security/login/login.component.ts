@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
     try {
       this.loading = true;
       await this.auth.signIn(email, password);
+      window.location.reload();
       this.router.navigate(['/']);
       this.loading = false;
     } catch (exception) {
