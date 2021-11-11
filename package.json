@@ -4,8 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "start:proxy": "ng serve --proxy-config proxy.config.js",
+    "start:dev": "npm start --sourceMap=false",
+    "optmizecss": "gulp --gulpfile build-scripts/optimize-css.gulpfile.js",
+    "build": "ng build --configuration production --aot --output-hashing=all --build-optimizer --optimization --base-href /",
+    "build2": "ng build --configuration production --aot --outputHashing=all  --build-optimizer --named-chunks --extract-css=true",
     "test": "ng test",
     "test:common": "ng test --browsers Chrome,Firefox",
     "test:ci": "ng test --watch=true --reporters junit --browsers ChromeHeadless",
