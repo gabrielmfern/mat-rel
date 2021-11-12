@@ -5,5 +5,6 @@ export class Commentary {
   _id?: string;
   user: Partial<User>;
   post: Partial<Post>;
+  publishingDate: Date;
   text: string;
 }

@@ -18,6 +18,10 @@ body {
   cursor: pointer;
 }
 
+.no-pointer {
+  cursor: auto !important;
+}
+
 .jax-process {
   text-overflow: inherit;
   max-height: inherit;

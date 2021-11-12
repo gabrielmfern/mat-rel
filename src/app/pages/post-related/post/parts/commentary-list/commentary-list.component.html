@@ -31,16 +31,16 @@
     </button>
     <li class="list-group-item" *ngIf="this.authService.isLoggedIn">
       <div class="row">
-        <div class="col-10">
+        <div class="col-11">
           <mrl-control-textarea
             [control]="commentaryTextControl"
             placeholder="I believe your thesis is wrong because [...]"
-            [rows]="3"
+            [rows]="2"
             [validate]="false"
           ></mrl-control-textarea>
         </div>
-        <div class="col-2">
-          <button class="btn btn-warning mx-auto" (click)="comment()">Comment</button>
+        <div class="col-1">
+          <button class="btn btn-warning mx-auto" (click)="comment()"><i class="fa fa-comment"></i></button>
         </div>
       </div>
     </li>

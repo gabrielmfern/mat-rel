@@ -68,7 +68,7 @@ export class PostComponent implements OnInit {
   }
 
   async agree() {
-    if (!this.hasAgreed && !this.loading) {
+    if (!this.hasAgreed && !this.isAuthor && this.authService.isLoggedIn && !this.loading) {
       const disagreedIndex = this.post.disagreed.map((u) => u._id).indexOf(this.loggedUser._id);
       if (disagreedIndex > -1) {
         this.post.disagreed.splice(disagreedIndex);
@@ -87,7 +87,7 @@ export class PostComponent implements OnInit {
   }
 
   async disagree() {
-    if (!this.hasDisagreed) {
+    if (!this.hasDisagreed && !this.isAuthor && this.authService.isLoggedIn && !this.loading) {
       const agreedIndex = this.post.agreed.map((u) => u._id).indexOf(this.loggedUser._id);
       if (agreedIndex > -1) {
         this.post.agreed.splice(agreedIndex);

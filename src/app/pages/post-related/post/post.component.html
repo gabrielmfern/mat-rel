@@ -3,12 +3,22 @@
     <div class="card-header">
       <h3 class="card-title d-inline-block" [mathjax]="post?.title"></h3>
 
-      <span class="float-end" *ngIf="!isAuthor && this.authService.isLoggedIn">
-        <button class="btn" [ngClass]="{ active: hasAgreed }" (click)="agree()">
+      <span class="float-end">
+        <button
+          class="btn"
+          [ngClass]="{ 'no-pointer': authService.isLoggedIn || isAuthor }"
+          [disabled]="isAuthor || hasAgreed"
+          (click)="agree()"
+        >
           <i class="fa fa-thumbs-up"></i>
           {{ post?.agreed?.length }}
         </button>
-        <button class="btn" [ngClass]="{ active: hasDisagreed }" (click)="disagree()">
+        <button
+          class="btn"
+          [ngClass]="{ 'no-pointer': authService.isLoggedIn || isAuthor }"
+          [disabled]="isAuthor || hasDisagreed"
+          (click)="disagree()"
+        >
           <i class="fa fa-thumbs-down"></i>
           {{ post?.disagreed?.length }}
         </button>
@@ -19,7 +29,7 @@
     </div>
     <div class="card-footer d-flex">
       <button class="btn btn-info" [routerLink]="['/']"><i class="fa fa-angle-left"></i> Back</button>
-      <p class="ms-auto mt-auto mb-auto">{{ post?.user?.name }}</p>
+      <p class="ms-auto mt-auto mb-auto">{{ post?.user?.name }} {{ post?.publishingDate | date }}</p>
     </div>
     <mrl-commentary-list [post]="post"></mrl-commentary-list>
   </div>

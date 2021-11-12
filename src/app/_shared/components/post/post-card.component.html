@@ -1,13 +1,24 @@
 <mrl-loader [loading]="loading">
   <div class="card">
     <div class="card-header">
-      <h5 class="card-title" [mathjax]="post.title"></h5>
+      <h5 class="card-title d-inline-block" [mathjax]="post.title"></h5>
+
+      <span class="float-end d-inline-block">
+        <span class="btn no-pointer">
+          <i class="fa fa-thumbs-up"></i>
+          {{ post?.agreed?.length }}
+        </span>
+        <span class="btn no-pointer">
+          <i class="fa fa-thumbs-down"></i>
+          {{ post?.disagreed?.length }}
+        </span>
+      </span>
     </div>
     <div class="card-body">
       <p class="card-text" [mathjax]="post.text"></p>
     </div>
     <div class="card-footer d-flex">
-      <p class="mt-auto mb-auto">{{ post.user.name }}</p>
+      <p class="mt-auto mb-auto">{{ post.user.name }} {{ post.publishingDate | date }}</p>
       <a class="btn btn-primary ms-auto" [routerLink]="['/post/' + post._id]">Read</a>
       <a class="btn btn-danger ms-1" *ngIf="isLoggedUserAuthor()" (click)="deletePost()">Delete</a>
       <a class="btn btn-dark ms-1" *ngIf="isLoggedUserAuthor()" (click)="editPost()">Edit</a>
