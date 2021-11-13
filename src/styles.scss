@@ -1,9 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 
+$accent-color: rgb(72, 206, 123);
+$accent-secondary-color: rgb(68, 184, 112);
+$danger-color: rgb(206, 72, 72);
+$accent-hover-color: darken($accent-color, 10%);
+$accent-secondary-hover-color: darken($accent-secondary-color, 10%);
+$danger-hover-color: darken($danger-color, 10%);
+
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
@@ -38,5 +46,57 @@ body {
 }
 
 .rel {
-  color: rgb(72, 206, 123);
+  color: $accent-color;
+}
+
+.btn-danger-rel {
+  background: $danger-color;
+  color: #fff;
+
+  &:hover {
+    color: #eee;
+    background: $danger-hover-color;
+  }
+}
+
+.btn-rel {
+  background: $accent-color;
+  color: #fff;
+
+  &:hover {
+    color: #eee;
+    background: $accent-hover-color;
+  }
+}
+
+.btn-secondary-rel {
+  background: $accent-secondary-color;
+  color: #fff;
+
+  &:hover {
+    color: #eee;
+    background: $accent-secondary-hover-color;
+  }
+}
+
+.btn-outline-rel {
+  background: none;
+  border: 1px solid $accent-color;
+  color: $accent-color;
+
+  &:hover {
+    background: $accent-color;
+    color: #fff;
+  }
+}
+
+.btn-outline-secondary-rel {
+  background: none;
+  border: 1px solid $accent-secondary-color;
+  color: $accent-secondary-color;
+
+  &:hover {
+    background: $accent-secondary-color;
+    color: #fff;
+  }
 }
