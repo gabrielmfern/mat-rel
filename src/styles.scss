@@ -79,6 +79,14 @@ body {
   }
 }
 
+.btn-link-rel {
+  color: $accent-secondary-color;
+
+  &:hover {
+    color: $accent-secondary-hover-color;
+  }
+}
+
 .btn-outline-rel {
   background: none;
   border: 1px solid $accent-color;

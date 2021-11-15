@@ -3,7 +3,7 @@
     <div class="col-12 col-md-10 col-lg-9 ms-auto mx-auto">
       <div class="card">
         <div class="card-body row">
-          <div class="col-8" [ngClass]="{
+          <div class="col-9" [ngClass]="{
             'col-12': !authService.isLoggedIn
           }">
             <mrl-control-input
@@ -14,7 +14,7 @@
               placeholder="The proof of [...]"
             ></mrl-control-input>
           </div>
-          <div class="col-4" *ngIf="authService.isLoggedIn">
+          <div class="col-3" *ngIf="authService.isLoggedIn">
             <button class="btn btn-secondary-rel float-end" [routerLink]="['/publishing-post']">
               New publication
             </button>

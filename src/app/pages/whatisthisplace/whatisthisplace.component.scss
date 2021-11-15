@@ -1,0 +1,28 @@
+.whatisthisplace {
+  font-size: 20px;
+
+  .title {
+    font-size: 50px;
+  }
+
+  .subtitle {
+    font-style: italic;
+  }
+
+  * {
+    margin-top: 30px;
+  }
+
+  p {
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+
+    * {
+      font-size: inherit !important;
+      padding: 0;
+      line-height: inherit !important;
+      vertical-align: inherit !important;
+    }
+  }
+}

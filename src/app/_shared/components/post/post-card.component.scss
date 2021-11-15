@@ -6,6 +6,10 @@
     text-overflow: ellipsis;
   }
 
+  .card-title {
+    vertical-align: center;
+  }
+
   .card-body {
     max-height: 120px;
     overflow-y: hidden;
