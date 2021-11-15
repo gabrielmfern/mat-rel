@@ -5,7 +5,7 @@
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/home']">Home</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLinkActive="active" [routerLink]="['/donate']">Donations</a>
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['/donate']" *ngIf="!isInProduction()">Donations</a>
     </li>
   </ul>
   <div class="ms-auto mx-5" ngbDropdown>

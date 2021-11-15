@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -22,5 +23,9 @@ export class NavbarComponent implements OnInit {
   getUsername() {
     if (!this.authService.isLoggedIn) return '';
     return this.authService.getLoggedUser().name;
+  }
+
+  isInProduction() {
+    return environment.production;
   }
 }
