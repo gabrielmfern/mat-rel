@@ -28,12 +28,4 @@ describe('HomeComponent', () => {
   it('should create component', () => {
     expect(component).toBeTruthy();
   });
-
-  it(`posts has default value`, () => {
-    expect(component.posts).toEqual([]);
-  });
-
-  it(`loading has default value`, () => {
-    expect(component.loading).toEqual(false);
-  });
 });
