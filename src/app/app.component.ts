@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
@@ -7,17 +7,19 @@ import { environment } from 'src/environments/environment';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent  implements OnInit {
 
-  constructor(private router: Router) {
-    // if (environment.production) {
-    //   this.router.events.subscribe((event) => {
-    //     if (event instanceof NavigationEnd) {
-    //       // console.log(event.urlAfterRedirects);
-    //       (window as any).ga('set', 'page', event.urlAfterRedirects);
-    //       (window as any).ga('send', 'pageview');
-    //     }
-    //   });
-    // }
+  constructor(private router: Router) { }
+
+  ngOnInit(): void {
+    if (environment.production) {
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          // console.log(event.urlAfterRedirects);
+          (window as any).ga('set', 'page', event.urlAfterRedirects);
+          (window as any).ga('send', 'pageview');
+        }
+      });
+    }
   }
 }
