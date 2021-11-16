@@ -17,12 +17,8 @@ export class PostComponent implements OnInit {
 
   post: Post;
   loading = false;
-  isAuthor: boolean = true;
 
   loggedUser: Partial<User>;
-
-  hasAgreed: boolean = false;
-  hasDisagreed: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -44,18 +40,30 @@ export class PostComponent implements OnInit {
       try {
         this.postId = params.id;
         await this.loadPost(params.id);
-        if (this.authService.isLoggedIn) {
-          this.loggedUser = this.authService.getLoggedUser();
-          this.isAuthor = this.loggedUser?._id == this.post.user._id;
-          this.hasAgreed = this.post.agreed.map((u) => u._id).includes(this.loggedUser._id);
-          this.hasDisagreed = this.post.disagreed.map((u) => u._id).includes(this.loggedUser?._id);
-        }
       } catch (exception) {
         console.error(exception);
         this.router.navigate(['/']);
       }
       this.loading = false;
     });
+  }
+
+  isAuthor() {
+    if (!this.loggedUser || !this.post) return false;
+
+    return this.loggedUser._id == this.post.user._id;
+  }
+
+  hasAgreed() {
+    if (!this.loggedUser || !this.post) return true;
+
+    return typeof this.post.agreed.find(u => u._id == this.loggedUser._id) != 'undefined';
+  }
+
+  hasDisagreed() {
+    if (!this.loggedUser || !this.post) return true;
+
+    return typeof this.post.disagreed.find(u => u._id == this.loggedUser._id) != 'undefined';
   }
 
   async loadPost(id: string) {
@@ -75,8 +83,6 @@ export class PostComponent implements OnInit {
         this.post.disagreed.splice(disagreedIndex);
       }
       this.post.agreed.push(this.loggedUser);
-      this.hasAgreed = true;
-      this.hasDisagreed = false;
       await this.postService.agree(
         {
           _id: this.post._id
@@ -94,8 +100,6 @@ export class PostComponent implements OnInit {
         this.post.agreed.splice(agreedIndex);
       }
       this.post.disagreed.push(this.loggedUser);
-      this.hasAgreed = false;
-      this.hasDisagreed = true;
       await this.postService.disagree(
         {
           _id: this.post._id

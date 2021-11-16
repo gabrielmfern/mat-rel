@@ -6,8 +6,8 @@
       <span class="float-end">
         <button
           class="btn"
-          [ngClass]="{ 'no-pointer': authService.isLoggedIn || isAuthor }"
-          [disabled]="isAuthor || hasAgreed"
+          [ngClass]="{ 'no-pointer': authService.isLoggedIn || isAuthor() }"
+          [disabled]="isAuthor() || hasAgreed()"
           (click)="agree()"
         >
           <i class="fa fa-thumbs-up"></i>
@@ -15,8 +15,8 @@
         </button>
         <button
           class="btn"
-          [ngClass]="{ 'no-pointer': authService.isLoggedIn || isAuthor }"
-          [disabled]="isAuthor || hasDisagreed"
+          [ngClass]="{ 'no-pointer': authService.isLoggedIn || isAuthor() }"
+          [disabled]="isAuthor() || hasDisagreed()"
           (click)="disagree()"
         >
           <i class="fa fa-thumbs-down"></i>
