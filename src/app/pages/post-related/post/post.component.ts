@@ -45,6 +45,7 @@ export class PostComponent implements OnInit {
         this.postId = params.id;
         await this.loadPost(params.id);
         if (this.authService.isLoggedIn) {
+          this.loggedUser = this.authService.getLoggedUser();
           this.isAuthor = this.loggedUser?._id == this.post.user._id;
           this.hasAgreed = this.post.agreed.map((u) => u._id).includes(this.loggedUser._id);
           this.hasDisagreed = this.post.disagreed.map((u) => u._id).includes(this.loggedUser?._id);
