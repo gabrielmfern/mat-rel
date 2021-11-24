@@ -108,3 +108,17 @@ body {
     color: #fff;
   }
 }
+
+.danger {
+  background: $danger-color;
+  background-color: $danger-color;
+}
+
+.accent {
+  background: $accent-color;
+  background-color: $accent-color;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background: $accent-color;
+}

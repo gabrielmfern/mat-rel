@@ -34,10 +34,46 @@
                     [rows]="10"
                   ></mrl-control-textarea>
                 </div>
+
+                <div class="col-12 p-2 row">
+                  <div class="col-9">
+                    <mrl-control-select
+                      [control]="tagControl"
+                      label="Tags"
+                      [validate]="false"
+                      [disabled]="getAvailableTags().length == 0"
+                      [placement]="'top'"
+                      [options]="getAvailableTags()"
+                    ></mrl-control-select>
+                  </div>
+
+                  <div class="col-3 mt-auto">
+                    <button
+                      class="btn btn-secondary-rel float-end"
+                      type="button"
+                      [disabled]="getAvailableTags().length == 0 || tags.length == 4"
+                      (click)="addTag(tagControl.value)"
+                    >
+                      Add tag
+                    </button>
+                  </div>
+
+                  <div class="col-12 mt-2">
+                    <p *ngIf="tags.length == 0">To publish this you will need at least one tag.</p>
+
+                    <button class="btn btn-danger-rel ms-2 mt-2" *ngFor="let tag of tags" type="button" (click)="removeTag(tag)">
+                      {{ tag }}
+
+                      <i class="fa fa-close"></i>
+                    </button>
+                  </div>
+                </div>
               </div>
               <div class="card-footer">
                 <button class="btn btn-danger-rel float-start" [routerLink]="['/']">Cancel</button>
-                <button class="btn btn-secondary-rel float-end" [disabled]="postForm.invalid">Send</button>
+                <button class="btn btn-secondary-rel float-end" type="submit" [disabled]="postForm.invalid || tags.length == 0">
+                  Send
+                </button>
               </div>
             </ng-template>
           </li>

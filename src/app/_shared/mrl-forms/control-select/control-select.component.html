@@ -1,0 +1,35 @@
+<div class="form-group w-100">
+  <label [for]="getInputId()" *ngIf="hasLabel()">
+    {{ label }}
+  </label>
+
+  <div
+    ngbDropdown
+
+    [id]="getInputId()"
+    class="w-100 form-control c-pointer"
+    [ngClass]="{
+      'is-valid': valid === true,
+      'is-invalid': valid === false
+    }"
+  >
+    <div class="c-pointer w-100" ngbDropdownToggle readonly>{{ control.value }}</div>
+    <div ngbDropdownMenu>
+      <button
+        ngbDropdownItem
+        type="button"
+        *ngFor="let option of options"
+        (click)="patchOptionTo(option.value)"
+        [ngClass]="{
+          active: isSelectedOption(option.value)
+        }"
+      >
+        {{ option.name }}
+      </button>
+    </div>
+  </div>
+
+  <div class="invalid-feedback">
+    {{ errorMessage }}
+  </div>
+</div>

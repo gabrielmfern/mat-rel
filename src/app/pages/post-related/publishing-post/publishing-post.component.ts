@@ -25,6 +25,24 @@ export class PublishingPostComponent implements OnInit {
   editingId: string;
   editingPost: Post;
 
+  availableTags = [
+    {
+      name: 'Number Theory',
+      value: 'Number Theory'
+    },
+    { name: 'Zeta Function', value: 'Zeta Function' },
+    { name: 'Calculus', value: 'Calculus' },
+    { name: 'Real Analysis', value: 'Real Analysis' },
+    { name: 'Functions', value: 'Functions' },
+    { name: 'Sequences', value: 'Sequences' },
+    { name: 'Series', value: 'Series' },
+    { name: 'Limits', value: 'Limits' },
+    { name: 'Prime Numbers', value: 'Prime Numbers' }
+  ];
+
+  tags: string[] = [];
+  tagControl = new FormControl('Number Theory');
+
   constructor(
     fb: FormBuilder,
     private router: Router,
@@ -42,6 +60,30 @@ export class PublishingPostComponent implements OnInit {
         [Validators.required, Validators.minLength(100)]
       ]
     });
+  }
+
+  getAvailableTags() {
+    return this.availableTags.filter((tag) => !this.tags.includes(tag.name));
+  }
+
+  getRandomAvailableTag() {
+    const tags = this.getAvailableTags();
+    const randomIndex = Math.floor(Math.random() * tags.length);
+    return tags[randomIndex];
+  }
+
+  addTag(tag: string) {
+    if (this.tags.includes(tag) || this.tags.length == 4) return;
+    this.tags.push(tag);
+    this.tagControl.patchValue(this.getRandomAvailableTag().name);
+  }
+
+  removeTag(tag: string) {
+    const index = this.tags.findIndex((_tag) => _tag == tag);
+    this.tags.splice(index, 1);
+    if (this.getAvailableTags().length == 1) {
+      this.tagControl.patchValue(this.getAvailableTags()[0].value);
+    }
   }
 
   public ngOnInit() {
@@ -74,22 +116,27 @@ export class PublishingPostComponent implements OnInit {
   }
 
   public async submitForm() {
-    if (this.postForm.valid) {
-      const newPost: Partial<Post> = this.postForm.value;
+    if (this.postForm.valid && this.tags.length >= 1 && this.tags.length <= 4) {
+      const newPost: any = this.postForm.value;
+      newPost.tags = this.tags;
       this.loading = true;
-      if (this.editing) {
-        await this.postService.updateOne(
-          {
-            _id: this.editingId
-          },
-          newPost,
-          this.authService.getAuthorization()
-        );
-      } else {
-        await this.postService.insertOne(newPost, this.authService.getAuthorization());
+      try {
+        if (this.editing) {
+          await this.postService.updateOne(
+            {
+              _id: this.editingId
+            },
+            newPost as any,
+            this.authService.getAuthorization()
+          );
+        } else {
+          await this.postService.insertOne(newPost as any, this.authService.getAuthorization());
+        }
+        this.router.navigate(['/']);
+      } catch (exception) {
+        console.error(exception);
       }
       this.loading = false;
-      this.router.navigate(['/']);
     }
   }
 
