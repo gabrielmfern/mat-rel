@@ -53,7 +53,7 @@ export class PublishingPostComponent implements OnInit {
     this.postForm = fb.group({
       title: [
         'Regarding $\\pi(x)$ and $\\frac{x}{\\ln{x}}$',
-        [Validators.required, Validators.minLength(12), Validators.maxLength(80)]
+        [Validators.required, Validators.minLength(12), Validators.maxLength(60)]
       ],
       text: [
         'Let $\\pi(x)$ denote the amount of prime numbers that are $\\leq x$ in such way that for example, $\\pi(10)=4$, because there are 4 prime numbers up to 10, that are all 2,3,5,7 [...]',
@@ -103,6 +103,8 @@ export class PublishingPostComponent implements OnInit {
             title: this.editingPost.title,
             text: this.editingPost.text
           });
+          if (this.editingPost.tags)
+            this.tags = this.editingPost.tags.split(',');
           this.previewTitle = this.editingPost.title;
           this.previewText = this.editingPost.text;
           this.onTextFocusedOut();
