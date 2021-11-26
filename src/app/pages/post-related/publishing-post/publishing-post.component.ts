@@ -58,7 +58,8 @@ export class PublishingPostComponent implements OnInit {
       text: [
         '',
         [Validators.required, Validators.minLength(100)]
-      ]
+      ],
+      public: [true, [Validators.required]]
     });
   }
 

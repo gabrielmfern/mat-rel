@@ -20,7 +20,7 @@ export class PostsDisplayComponent implements OnInit {
   pageAmount = 0;
   posts: Post[] = [];
 
-  constructor(public postService: PostService) {}
+  constructor(public postService: PostService, private authService: AuthService) {}
 
   async ngOnInit() {
     this.loadPosts();
@@ -47,7 +47,7 @@ export class PostsDisplayComponent implements OnInit {
             page: this.page,
             ...this.filter
           } as any
-        )
+        , this.authService.getAuthorization())
         .then((result) => {
           this.posts.push(...result.records);
           this.pageAmount = result.pageAmount;
