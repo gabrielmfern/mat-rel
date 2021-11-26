@@ -7,6 +7,7 @@ export class Post {
   text: string;
   tags: string;
   publishingDate: Date;
+  public: boolean;
   agreed: Partial<User>[];
   disagreed: Partial<User>[];
 }

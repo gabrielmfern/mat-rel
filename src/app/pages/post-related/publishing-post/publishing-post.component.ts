@@ -102,7 +102,8 @@ export class PublishingPostComponent implements OnInit {
           );
           this.postForm.patchValue({
             title: this.editingPost.title,
-            text: this.editingPost.text
+            text: this.editingPost.text,
+            public: this.editingPost.public
           });
           if (this.editingPost.tags)
             this.tags = this.editingPost.tags.split(',');
