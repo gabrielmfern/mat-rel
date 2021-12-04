@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 import { ControlInputComponent } from 'src/app/_shared/mrl-forms/control-input/control-input.component';
@@ -22,14 +23,27 @@ export class LoginComponent implements OnInit {
 
   loading = false;
 
-  constructor(fb: FormBuilder, private auth: AuthService, private router: Router) {
+  constructor(
+    fb: FormBuilder,
+    private auth: AuthService,
+    private router: Router,
+    private title: Title,
+    private meta: Meta
+  ) {
     this.loginForm = fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.meta.addTags([
+      { name: 'description', content: 'The new land of discoveries' },
+      { name: 'author', content: 'Gabriel Miranda' },
+      { name: 'keywords', content: 'matrel, math discoveries, math, mathematics, discoveries, gabriel miranda, log in, sign in, login' }
+    ]);
+    this.title.setTitle('MatRel - Log In');
+  }
 
   async sendForm() {
     if (this.loginForm.invalid) return;

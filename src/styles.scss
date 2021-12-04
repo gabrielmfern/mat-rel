@@ -59,6 +59,10 @@ body {
   }
 }
 
+.btn {
+  max-height: 38px;
+}
+
 .btn-rel {
   background: $accent-color;
   color: #fff;
@@ -98,6 +102,25 @@ body {
   }
 }
 
+.btn-float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 60px;
+  right: 40px;
+  background-color: $accent-color;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  text-align: center;
+  box-shadow: 2px 2px 3px #999;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: $accent-hover-color;
+  }
+}
+
 .btn-outline-secondary-rel {
   background: none;
   border: 1px solid $accent-secondary-color;
@@ -119,6 +142,7 @@ body {
   background-color: $accent-color;
 }
 
-.dropdown-item.active, .dropdown-item:active {
+.dropdown-item.active,
+.dropdown-item:active {
   background: $accent-color;
 }

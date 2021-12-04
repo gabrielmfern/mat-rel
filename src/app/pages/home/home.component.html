@@ -2,24 +2,24 @@
   <div class="row mb-5">
     <div class="col-12 col-md-10 col-lg-9 ms-auto mx-auto">
       <div class="card">
-        <div class="card-body row">
+        <form [formGroup]="searchForm" class="card-body row" (submit)="handleSearch()">
           <div class="col-9">
             <mrl-control-input
-              [control]="searchControl"
+              [control]="getSearchControl()"
               type="text"
-              (focusOut)="handleSearch()"
               [validate]="false"
               placeholder="The proof of [...]"
             ></mrl-control-input>
           </div>
           <div class="col-3">
-            <button class="btn btn-secondary-rel float-end" [routerLink]="['/publishing-post']">
-              New publication
-            </button>
+            <button class="btn btn-rel float-end"><i class="fa fa-search"></i></button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
-  <mrl-posts-display #postsDisplay></mrl-posts-display>
+  <mrl-posts-display #postsDisplay [showTitle]="true"></mrl-posts-display>
 </div>
+<button class="btn-float" [routerLink]="['/publishing-post']">
+  <i class="fa fa-plus"></i>
+</button>

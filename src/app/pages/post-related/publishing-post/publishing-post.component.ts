@@ -6,6 +6,7 @@ import { PostService } from 'src/app/_shared/services/cruds/post.service';
 import { AuthService } from 'src/app/_shared/services/auth.service';
 
 import { Post } from 'src/app/_shared/modals/post.modal';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'mrl-publishing-post',
@@ -48,7 +49,9 @@ export class PublishingPostComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private postService: PostService,
-    private authService: AuthService
+    private authService: AuthService,
+    private meta: Meta,
+    private title: Title
   ) {
     this.postForm = fb.group({
       title: [
@@ -117,6 +120,13 @@ export class PublishingPostComponent implements OnInit {
         this.loading = false;
       }
     });
+
+    this.meta.addTags([
+      { name: 'description', content: 'New|Edit Post' },
+      { name: 'author', content: 'Gabriel Miranda'},
+      { name: 'keywords', content: 'matrel, math discoveries, math, mathematics, discoveries, gabriel miranda' }
+    ]);
+    this.title.setTitle('MatRel - Post Formulary');
   }
 
   public async submitForm() {

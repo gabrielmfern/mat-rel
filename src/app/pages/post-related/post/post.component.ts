@@ -6,6 +6,7 @@ import { PostService } from 'src/app/_shared/services/cruds/post.service';
 
 import { Post } from 'src/app/_shared/modals/post.modal';
 import { User } from 'src/app/_shared/modals/user.modal';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'mrl-post',
@@ -23,6 +24,8 @@ export class PostComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private title: Title,
+    private meta: Meta,
     private postService: PostService,
     public authService: AuthService
   ) {}
@@ -57,22 +60,26 @@ export class PostComponent implements OnInit {
   hasAgreed() {
     if (!this.loggedUser || !this.post) return true;
 
-    return typeof this.post.agreed.find(u => u._id == this.loggedUser._id) != 'undefined';
+    return typeof this.post.agreed.find((u) => u._id == this.loggedUser._id) != 'undefined';
   }
 
   hasDisagreed() {
     if (!this.loggedUser || !this.post) return true;
 
-    return typeof this.post.disagreed.find(u => u._id == this.loggedUser._id) != 'undefined';
+    return typeof this.post.disagreed.find((u) => u._id == this.loggedUser._id) != 'undefined';
   }
 
   async loadPost(id: string) {
     this.loading = true;
-    this.post = await this.postService.findOne(
-      {
-        _id: id
-      }
-    );
+    this.post = await this.postService.findOne({
+      _id: id
+    });
+    this.title.setTitle(`MatRel - ${this.post.title}`);
+    this.meta.addTags([
+      { name: 'description', content: this.post.text },
+      { name: 'author', content: this.post.user.name },
+      { name: 'keywords', content: this.post.tags.toLowerCase() }
+    ]);
     this.loading = false;
   }
 

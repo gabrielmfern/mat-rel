@@ -14,6 +14,8 @@ export class PostsDisplayComponent implements OnInit {
   @Input() filter: Partial<Post> | any = {};
   @Input() occupyAllSpace = false;
 
+  @Input() showTitle: boolean = false;
+
   loading = false;
 
   page = 0;
