@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+
+import { MetaService } from './../../_shared/services/meta.service';
 
 @Component({
   selector: 'mrl-what-is-this-place',
@@ -7,17 +8,12 @@ import { Meta, Title } from '@angular/platform-browser';
   styleUrls: ['./whatisthisplace.component.scss']
 })
 export class WhatIsThisPlaceComponent implements OnInit {
-  constructor(private meta: Meta, private title: Title) {}
+  constructor(private metaService: MetaService) {}
 
   ngOnInit() {
-    this.meta.addTags([
-      { name: 'description', content: 'The new land of discoveries' },
-      { name: 'author', content: 'Gabriel Miranda' },
-      {
-        name: 'keywords',
-        content: 'matrel, math discoveries, math, mathematics, discoveries, gabriel miranda, homepage, what is matrel, mat rel'
-      }
-    ]);
-    this.title.setTitle('MatRel - The new land of discoveries');
+    this.metaService.setTag('description', 'The new land of discoveries');
+    this.metaService.setTag('author', 'Gabriel Miranda');
+    this.metaService.setTag('keywords', 'matrel, math discoveries, math, mathematics, discoveries, gabriel miranda, homepage, what is matrel, mat rel');
+    this.metaService.setTitle('The new land of discoveries');
   }
 }

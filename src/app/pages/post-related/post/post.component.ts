@@ -7,6 +7,7 @@ import { PostService } from 'src/app/_shared/services/cruds/post.service';
 import { Post } from 'src/app/_shared/modals/post.modal';
 import { User } from 'src/app/_shared/modals/user.modal';
 import { Meta, Title } from '@angular/platform-browser';
+import { MetaService } from 'src/app/_shared/services/meta.service';
 
 @Component({
   selector: 'mrl-post',
@@ -24,8 +25,7 @@ export class PostComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private title: Title,
-    private meta: Meta,
+    private metaService: MetaService,
     private postService: PostService,
     public authService: AuthService
   ) {}
@@ -74,12 +74,10 @@ export class PostComponent implements OnInit {
     this.post = await this.postService.findOne({
       _id: id
     });
-    this.title.setTitle(`MatRel - ${this.post.title}`);
-    this.meta.addTags([
-      { name: 'description', content: this.post.text },
-      { name: 'author', content: this.post.user.name },
-      { name: 'keywords', content: this.post.tags.toLowerCase() }
-    ]);
+    this.metaService.setTag('description', this.post.text.slice(0, 100));
+    this.metaService.setTag('author', this.post.user.name);
+    this.metaService.setTag('keywords', 'matrel, math discoveries, math, mathematics, discoveries, gabriel miranda, homepage, what is matrel, mat rel'.split(', ').concat(this.post.tags.toLowerCase().split(',').join(', ')).join(', '));
+    this.metaService.setTitle(this.post.title);
     this.loading = false;
   }
 

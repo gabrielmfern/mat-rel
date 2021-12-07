@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/_shared/services/auth.service';
 
 import { Post } from 'src/app/_shared/modals/post.modal';
 import { Meta, Title } from '@angular/platform-browser';
+import { MetaService } from 'src/app/_shared/services/meta.service';
 
 @Component({
   selector: 'mrl-publishing-post',
@@ -50,8 +51,7 @@ export class PublishingPostComponent implements OnInit {
     private route: ActivatedRoute,
     private postService: PostService,
     private authService: AuthService,
-    private meta: Meta,
-    private title: Title
+    private metaService: MetaService
   ) {
     this.postForm = fb.group({
       title: [
@@ -121,12 +121,10 @@ export class PublishingPostComponent implements OnInit {
       }
     });
 
-    this.meta.addTags([
-      { name: 'description', content: 'New|Edit Post' },
-      { name: 'author', content: 'Gabriel Miranda'},
-      { name: 'keywords', content: 'matrel, math discoveries, math, mathematics, discoveries, gabriel miranda' }
-    ]);
-    this.title.setTitle('MatRel - Post Formulary');
+    this.metaService.setTag('description', 'New Publication');
+    this.metaService.setTag('author', 'Gabriel Miranda');
+    this.metaService.setTag('keywords', 'matrel, math discoveries, math, mathematics, discoveries, gabriel miranda, homepage, what is matrel, mat rel');
+    this.metaService.setTitle('Post Formulary');
   }
 
   public async submitForm() {

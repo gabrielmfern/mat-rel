@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ControlInputComponent } from 'src/app/_shared/mrl-forms/control-input/control-input.component';
 
 import { AuthService } from 'src/app/_shared/services/auth.service';
+import { MetaService } from 'src/app/_shared/services/meta.service';
 
 @Component({
   selector: 'mrl-create-account',
@@ -23,8 +24,7 @@ export class CreateAccountComponent implements OnInit {
     fb: FormBuilder,
     private auth: AuthService,
     private router: Router,
-    private meta: Meta,
-    private title: Title
+    private metaService: MetaService
   ) {
     this.createAccountForm = fb.group({
       name: ['', [Validators.required]],
@@ -35,16 +35,10 @@ export class CreateAccountComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.meta.addTags([
-      { name: 'description', content: 'The new land of discoveries' },
-      { name: 'author', content: 'Gabriel Miranda' },
-      {
-        name: 'keywords',
-        content:
-          'matrel, math discoveries, math, mathematics, discoveries, gabriel miranda, sign up, create account, signup, register'
-      }
-    ]);
-    this.title.setTitle('MatRel - Create Account');
+    this.metaService.setTag('description', 'The new land of discoveries');
+    this.metaService.setTag('author', 'Gabriel Miranda');
+    this.metaService.setTag('keywords', 'matrel, math discoveries, math, mathematics, discoveries, gabriel miranda, homepage, what is matrel, mat rel, signup, sign up, register, create account, new account');
+    this.metaService.setTitle('Create Account');
   }
 
   async sendForm() {

@@ -4,6 +4,7 @@ import { Meta, Title } from '@angular/platform-browser';
 
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/_shared/services/auth.service';
+import { MetaService } from 'src/app/_shared/services/meta.service';
 import { PostsDisplayComponent } from '../../_shared/components/posts-display/posts-display.component';
 
 @Component({
@@ -19,8 +20,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    private meta: Meta,
-    private title: Title,
+    private metaService: MetaService,
     private fb: FormBuilder
   ) {}
 
@@ -29,16 +29,10 @@ export class HomeComponent implements OnInit {
       searchText: ['', []]
     });
 
-    this.meta.addTags([
-      { name: 'description', content: 'The new lands of discoveries' },
-      { name: 'author', content: 'Gabriel Miranda' },
-      {
-        name: 'keywords',
-        content:
-          'matrel, math discoveries, math, mathematics, discoveries, gabriel miranda, hotest publications, publications'
-      }
-    ]);
-    this.title.setTitle('MatRel - Hotest Publications');
+    this.metaService.setTag('description', 'The new land of discoveries');
+    this.metaService.setTag('author', 'Gabriel Miranda');
+    this.metaService.setTag('keywords', 'matrel, math discoveries, math, mathematics, discoveries, gabriel miranda, homepage, what is matrel, mat rel, latest publications, publications');
+    this.metaService.setTitle('Latest Publications');
   }
 
   getSearchControl(): FormControl {

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ControlInputComponent } from 'src/app/_shared/mrl-forms/control-input/control-input.component';
 
 import { AuthService } from 'src/app/_shared/services/auth.service';
+import { MetaService } from 'src/app/_shared/services/meta.service';
 
 @Component({
   selector: 'mrl-login',
@@ -27,8 +28,7 @@ export class LoginComponent implements OnInit {
     fb: FormBuilder,
     private auth: AuthService,
     private router: Router,
-    private title: Title,
-    private meta: Meta
+    private metaService: MetaService
   ) {
     this.loginForm = fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -37,12 +37,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.meta.addTags([
-      { name: 'description', content: 'The new land of discoveries' },
-      { name: 'author', content: 'Gabriel Miranda' },
-      { name: 'keywords', content: 'matrel, math discoveries, math, mathematics, discoveries, gabriel miranda, log in, sign in, login' }
-    ]);
-    this.title.setTitle('MatRel - Log In');
+    this.metaService.setTag('description', 'The new land of discoveries');
+    this.metaService.setTag('author', 'Gabriel Miranda');
+    this.metaService.setTag('keywords', 'matrel, math discoveries, math, mathematics, discoveries, gabriel miranda, homepage, mat rel, login, log in, signin, sign in');
+    this.metaService.setTitle('Log In');
   }
 
   async sendForm() {
