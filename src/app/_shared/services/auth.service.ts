@@ -43,6 +43,7 @@ export class AuthService {
   async updateAccount(
     name: string,
     email: string,
+    bio: string,
     currentPassword: string,
     newPassword?: string
   ): Promise<void | ApiError> {
@@ -52,6 +53,7 @@ export class AuthService {
         {
           name,
           email,
+          bio,
           currentPassword,
           newPassword
         },

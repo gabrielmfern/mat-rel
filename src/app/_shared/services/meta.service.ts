@@ -12,7 +12,6 @@ export class MetaService {
   }
 
   setTag(tagName: string, content: string) {
-    console.log(this.meta.getTag(`name=${tagName}`))
     if (this.meta.getTag(`name=${tagName}`)) {
       this.meta.updateTag({
         name: tagName,

@@ -32,6 +32,15 @@
           </div>
 
           <div class="col-12 p-2 d-inline-block">
+            <mrl-control-textarea
+              #bioControl
+              [control]="getControl('bio')"
+              label="Bio"
+              placeholder="I am an awesome mathematician!"
+            ></mrl-control-textarea>
+          </div>
+
+          <div class="col-12 p-2 d-inline-block">
             <mrl-control-input
               #passwordControl
               [control]="getControl('currentPassword')"

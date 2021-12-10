@@ -58,6 +58,7 @@ export class PostsDisplayComponent implements OnInit {
         .catch(err => {
           console.error(err);
           this.loading = false;
+          window.location.reload();
         });
     }
   }

@@ -7,6 +7,7 @@ import { ControlInputComponent } from 'src/app/_shared/mrl-forms/control-input/c
 
 import { Post } from 'src/app/_shared/modals/post.modal';
 import { User } from 'src/app/_shared/modals/user.modal';
+import { ControlTextareaComponent } from 'src/app/_shared/mrl-forms/control-textarea/control-textarea.component';
 
 @Component({
   selector: 'mrl-perfil',
@@ -26,6 +27,9 @@ export class PerfilComponent implements OnInit {
   @ViewChild('emailControl', { read: ControlInputComponent })
   emailControl: ControlInputComponent;
 
+  @ViewChild('bioControl', { read: ControlTextareaComponent })
+  bioControl: ControlTextareaComponent;
+
   @ViewChild('passwordControl', { read: ControlInputComponent })
   passwordControl: ControlInputComponent;
 
@@ -38,6 +42,7 @@ export class PerfilComponent implements OnInit {
     this.minhaContaForm = fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
+      bio: ['', [Validators.required]],
       newPassword: ['', [Validators.minLength(6)]],
       currentPassword: ['', [Validators.required, Validators.minLength(6)]]
     });
@@ -61,6 +66,7 @@ export class PerfilComponent implements OnInit {
     const formValue: {
       name: string;
       email: string;
+      bio: string;
       currentPassword: string;
       newPassword?: string;
     } = this.minhaContaForm.value;
@@ -69,6 +75,7 @@ export class PerfilComponent implements OnInit {
       await this.authService.updateAccount(
         formValue.name,
         formValue.email,
+        formValue.bio,
         formValue.currentPassword,
         formValue.newPassword
       );
@@ -96,6 +103,7 @@ export class PerfilComponent implements OnInit {
         this.emailControl.setErrorMessageAndValidState();
         this.nameControl.setErrorMessageAndValidState();
         this.passwordControl.setErrorMessageAndValidState();
+        this.bioControl.setErrorMessageAndValidState();
       }
     }
     this.loading = false;

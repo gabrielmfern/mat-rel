@@ -20,8 +20,13 @@ const routes: Routes = [
     canActivate: [LoggedInGuard]
   },
   {
+    path: 'user/:id',
+    loadChildren: () => import('./pages/user/user.module').then((m) => m.UserModule)
+  },
+  {
     path: 'whatisthisplace',
-    loadChildren: () => import('./pages/whatisthisplace/whatisthisplace.module').then((m) => m.WhatIsThisPlaceModule)
+    loadChildren: () =>
+      import('./pages/whatisthisplace/whatisthisplace.module').then((m) => m.WhatIsThisPlaceModule)
   },
   {
     path: 'publishing-post',
