@@ -31,7 +31,8 @@ export class HomeComponent implements OnInit {
 
     this.metaService.setTag('description', 'The new land of discoveries');
     this.metaService.setTag('author', 'Gabriel Miranda');
-    this.metaService.setTag('keywords', 'matrel, math discoveries, math, mathematics, discoveries, gabriel miranda, homepage, what is matrel, mat rel, latest publications, publications');
+    this.metaService.setTag('url', 'https://mat-rel.com/#/home');
+    this.metaService.setTag('keywords', 'matrel, math discoveries, math, mathematics, discoveries, gabriel miranda, homepage, mat rel, latest publications, publications, hotest publications, latests math discoveries, latest mathematics discoveries');
     this.metaService.setTitle('Latest Publications');
   }
 

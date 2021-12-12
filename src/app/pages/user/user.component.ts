@@ -24,6 +24,7 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       if (params.id) {
+        this.user._id = params.id;
         this.loading = true;
         this.userService
           .findOne({
@@ -38,6 +39,7 @@ export class UserComponent implements OnInit {
               'keywords',
               'matrel, mat rel, ' + this.user.name + ', ' + this.user.name.split(' ').join(', ')
             );
+            this.metaService.setTag('url', `https://mat-rel.com/#/user/${this.user._id}`);
             this.metaService.setTitle(this.user.name);
           })
           .catch((err) => {

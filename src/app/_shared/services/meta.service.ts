@@ -9,6 +9,7 @@ export class MetaService {
 
   setTitle(pageTitle: string) {
     this.title.setTitle(`MatRel - ${pageTitle}`);
+    this.setTag('title', `MatRel - ${pageTitle}`);
   }
 
   setTag(tagName: string, content: string) {
@@ -16,10 +17,18 @@ export class MetaService {
       this.meta.updateTag({
         name: tagName,
         content
-      }, `name=${tagName}`)
+      }, `name=${tagName}`);
+      this.meta.updateTag({
+        name: `og:${tagName}`,
+        content
+      }, `name=og:${tagName}`)
     } else {
       this.meta.addTag({
         name: tagName,
+        content
+      });
+      this.meta.addTag({
+        name: `og:${tagName}`,
         content
       });
     }

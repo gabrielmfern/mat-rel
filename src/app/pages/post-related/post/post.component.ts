@@ -76,7 +76,16 @@ export class PostComponent implements OnInit {
     });
     this.metaService.setTag('description', this.post.text.slice(0, 100));
     this.metaService.setTag('author', this.post.user.name);
-    this.metaService.setTag('keywords', 'matrel, math discoveries, math, mathematics, discoveries, gabriel miranda, homepage, what is matrel, mat rel'.split(', ').concat(this.post.tags.toLowerCase().split(',').join(', ')).join(', '));
+    this.metaService.setTag('url', `https://mat-rel.com/#/post/${this.post._id}`);
+    this.metaService.setTag(
+      'keywords',
+      'matrel, math discoveries, math, mathematics, discoveries, mat rel'
+        .split(', ')
+        .concat(this.post.tags.toLowerCase().split(',').join(', '))
+        .join(', ')
+        .concat(', ' + this.post.title + ', ' + this.post.title.split(' ').join(', '))
+        .concat(', ' + this.post.user.name + ', ' + this.post.user.name.split(' ').join(', '))
+    );
     this.metaService.setTitle(this.post.title);
     this.loading = false;
   }
