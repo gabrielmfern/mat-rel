@@ -21,7 +21,7 @@ export class MetaService {
       this.meta.updateTag({
         name: `og:${tagName}`,
         content
-      }, `name=og:${tagName}`)
+      }, `name='og:${tagName}'`)
     } else {
       this.meta.addTag({
         name: tagName,

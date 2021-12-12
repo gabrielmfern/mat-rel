@@ -12,7 +12,7 @@ import { MetaService } from 'src/app/_shared/services/meta.service';
 })
 export class UserComponent implements OnInit {
   loading = false;
-  user: Partial<User>;
+  user: Partial<User> = {};
 
   constructor(
     private router: Router,
