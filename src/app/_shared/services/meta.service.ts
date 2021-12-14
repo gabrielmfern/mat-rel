@@ -19,16 +19,16 @@ export class MetaService {
         content
       }, `name=${tagName}`);
       this.meta.updateTag({
-        name: `og:${tagName}`,
+        property: `og:${tagName}`,
         content
-      }, `name='og:${tagName}'`)
+      }, `property='og:${tagName}'`)
     } else {
       this.meta.addTag({
         name: tagName,
         content
       });
       this.meta.addTag({
-        name: `og:${tagName}`,
+        property: `og:${tagName}`,
         content
       });
     }
