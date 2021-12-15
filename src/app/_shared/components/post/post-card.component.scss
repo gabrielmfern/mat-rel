@@ -8,6 +8,11 @@
 
   .card-title {
     vertical-align: center;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
   }
 
   .card-body {

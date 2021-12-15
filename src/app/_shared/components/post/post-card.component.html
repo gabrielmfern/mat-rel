@@ -1,7 +1,9 @@
 <mrl-loader [loading]="loading">
   <div class="card">
     <div class="card-header">
-      <h5 class="card-title d-inline-block c-pointer" [mathjax]="post.title" [routerLink]="['/post/' + post._id]"></h5>
+      <h5 class="card-title d-inline-block c-pointer">
+        <a [routerLink]="['/post/' + post._id]" [mathjax]="post.title"></a>
+      </h5>
     </div>
     <div class="card-body">
       <p class="card-text" [mathjax]="post.text"></p>

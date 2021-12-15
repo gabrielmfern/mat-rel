@@ -12,7 +12,7 @@
             'col-11': isHoveringOn(commentary) && isAuthorOf(commentary)
           }"
         >
-          <span [mathjax]="commentary.text"></span> - {{ commentary.user.name }}
+          <span [mathjax]="commentary.text"></span> - <a class="btn btn-link-rel c-pointer" [routerLink]="['/user/' + commentary?.user?._id]">{{ commentary.user.name }}</a>
         </div>
         <div class="col-1" *ngIf="isHoveringOn(commentary) && isAuthorOf(commentary)">
           <a class="btn btn-link-rel delete-commentary c-pointer" (click)="deleteCommentary(commentary)">

@@ -21,8 +21,8 @@
     </ng-container>
 
     <ng-container *ngIf="!this.authService.isLoggedIn">
-      <button class="btn btn-rel mx-1" [routerLink]="['/security/create-account']">Sign up</button>
-      <button class="btn btn-outline-rel text-white" [routerLink]="['/security/login']">Sign In</button>
+      <a class="btn btn-rel mx-1" type="button" [routerLink]="['/security/create-account']">Sign up</a>
+      <a class="btn btn-outline-rel text-white" type="button" [routerLink]="['/security/login']">Sign In</a>
     </ng-container>
   </div>
 </nav>

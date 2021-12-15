@@ -29,7 +29,7 @@
     </div>
     <div class="card-footer d-flex">
       <button class="btn btn-secondary-rel" [routerLink]="['/']"><i class="fa fa-angle-left"></i> Back</button>
-      <p class="ms-auto mt-auto mb-auto"><a class="btn btn-link-rel delete-commentary c-pointer" [routerLink]="['/user/' + post?.user?._id]">{{ post?.user?.name }}</a> {{ post?.publishingDate | date }}</p>
+      <p class="ms-auto mt-auto mb-auto"><a class="btn btn-link-rel c-pointer" [routerLink]="['/user/' + post?.user?._id]">{{ post?.user?.name }}</a> {{ post?.publishingDate | date }}</p>
     </div>
     <mrl-commentary-list [post]="post"></mrl-commentary-list>
   </div>
