@@ -6,6 +6,7 @@ import { ControlInputComponent } from 'src/app/_shared/mrl-forms/control-input/c
 
 import { AuthService } from 'src/app/_shared/services/auth.service';
 import { MetaService } from 'src/app/_shared/services/meta.service';
+import { SitemapEditorService } from 'src/app/_shared/services/sitemap-editor.service';
 
 @Component({
   selector: 'mrl-create-account',
@@ -24,7 +25,8 @@ export class CreateAccountComponent implements OnInit {
     fb: FormBuilder,
     private auth: AuthService,
     private router: Router,
-    private metaService: MetaService
+    private metaService: MetaService,
+    private sitemapEditor: SitemapEditorService
   ) {
     this.createAccountForm = fb.group({
       name: ['', [Validators.required]],
@@ -38,7 +40,10 @@ export class CreateAccountComponent implements OnInit {
     this.metaService.setTag('description', 'The new land of discoveries');
     this.metaService.setTag('author', 'Gabriel Miranda');
     this.metaService.setTag('url', 'https://mat-rel.com/#/security/create-account');
-    this.metaService.setTag('keywords', 'matrel, math discoveries, math, mathematics, discoveries, gabriel miranda, mat rel, signup, sign up, register, create account, new account');
+    this.metaService.setTag(
+      'keywords',
+      'matrel, math discoveries, math, mathematics, discoveries, gabriel miranda, mat rel, signup, sign up, register, create account, new account'
+    );
     this.metaService.setTitle('Create Account');
   }
 
@@ -46,8 +51,13 @@ export class CreateAccountComponent implements OnInit {
     const { name, email, password } = this.createAccountForm.value;
     try {
       this.loading = true;
-      await this.auth.signUp(name, email, password);
+      const result: {
+        code: number;
+        userId: string;
+        message: string;
+      } = await this.auth.signUp(name, email, password) as any;
       this.loading = false;
+      await this.sitemapEditor.addUriOn('./users-sitemap.txt', `user/${result.userId}`);
       this.router.navigate(['/security/login']);
     } catch (exception) {
       this.loading = false;

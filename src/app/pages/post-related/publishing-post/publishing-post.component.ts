@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/_shared/services/auth.service';
 import { Post } from 'src/app/_shared/modals/post.modal';
 import { Meta, Title } from '@angular/platform-browser';
 import { MetaService } from 'src/app/_shared/services/meta.service';
+import { SitemapEditorService } from 'src/app/_shared/services/sitemap-editor.service';
 
 @Component({
   selector: 'mrl-publishing-post',
@@ -51,17 +52,12 @@ export class PublishingPostComponent implements OnInit {
     private route: ActivatedRoute,
     private postService: PostService,
     private authService: AuthService,
-    private metaService: MetaService
+    private metaService: MetaService,
+    private sitemapEditorService: SitemapEditorService
   ) {
     this.postForm = fb.group({
-      title: [
-        '',
-        [Validators.required, Validators.minLength(12), Validators.maxLength(60)]
-      ],
-      text: [
-        '',
-        [Validators.required, Validators.minLength(100)]
-      ],
+      title: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(60)]],
+      text: ['', [Validators.required, Validators.minLength(100)]],
       public: [true, [Validators.required]]
     });
   }
@@ -108,8 +104,7 @@ export class PublishingPostComponent implements OnInit {
             text: this.editingPost.text,
             public: this.editingPost.public
           });
-          if (this.editingPost.tags)
-            this.tags = this.editingPost.tags.split(',');
+          if (this.editingPost.tags) this.tags = this.editingPost.tags.split(',');
           this.previewTitle = this.editingPost.title;
           this.previewText = this.editingPost.text;
           this.onTextFocusedOut();
@@ -123,7 +118,10 @@ export class PublishingPostComponent implements OnInit {
 
     this.metaService.setTag('description', 'New Publication');
     this.metaService.setTag('author', 'Gabriel Miranda');
-    this.metaService.setTag('keywords', 'matrel, math discoveries, math, mathematics, discoveries, gabriel miranda, homepage, what is matrel, mat rel');
+    this.metaService.setTag(
+      'keywords',
+      'matrel, math discoveries, math, mathematics, discoveries, gabriel miranda, homepage, what is matrel, mat rel'
+    );
     this.metaService.setTitle('Post Formulary');
   }
 
@@ -141,8 +139,14 @@ export class PublishingPostComponent implements OnInit {
             newPost as any,
             this.authService.getAuthorization()
           );
+          if (newPost.public == true) {
+            await this.sitemapEditorService.addUriOn('./posts-sitemap.txt', `post/${this.editingPost._id}`);
+          }
         } else {
-          await this.postService.insertOne(newPost as any, this.authService.getAuthorization());
+          const post = await this.postService.insertOne(newPost as any, this.authService.getAuthorization());
+          if (post.public) {
+            await this.sitemapEditorService.addUriOn('./posts-sitemap.txt', `post/${post._id}`);
+          }
         }
         this.router.navigate(['/']);
       } catch (exception) {

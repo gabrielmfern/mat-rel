@@ -15,7 +15,7 @@ export class AuthService {
   isLoggedIn = false;
 
   constructor(private api: ApiService) {
-    this.verifyIfLogged().then(result => {
+    this.verifyIfLogged().then((result) => {
       this.isLoggedIn = result;
     });
   }
@@ -64,13 +64,20 @@ export class AuthService {
     }
   }
 
-  async signUp(name: string, email: string, password: string): Promise<void | ApiError> {
+  async signUp(
+    name: string,
+    email: string,
+    password: string
+  ): Promise<{ code: number; userId: string; message: string } | ApiError> {
     try {
-      await this.api.post<void>('/security/create-account', {
-        name,
-        email,
-        password
-      });
+      return await this.api.post<{ code: number; userId: string; message: string }>(
+        '/security/create-account',
+        {
+          name,
+          email,
+          password
+        }
+      );
     } catch (exception) {
       throw exception;
     }
