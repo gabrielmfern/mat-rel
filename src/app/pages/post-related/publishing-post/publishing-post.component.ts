@@ -6,9 +6,7 @@ import { PostService } from 'src/app/_shared/services/cruds/post.service';
 import { AuthService } from 'src/app/_shared/services/auth.service';
 
 import { Post } from 'src/app/_shared/modals/post.modal';
-import { Meta, Title } from '@angular/platform-browser';
 import { MetaService } from 'src/app/_shared/services/meta.service';
-import { SitemapEditorService } from 'src/app/_shared/services/sitemap-editor.service';
 
 @Component({
   selector: 'mrl-publishing-post',
@@ -52,8 +50,7 @@ export class PublishingPostComponent implements OnInit {
     private route: ActivatedRoute,
     private postService: PostService,
     private authService: AuthService,
-    private metaService: MetaService,
-    private sitemapEditorService: SitemapEditorService
+    private metaService: MetaService
   ) {
     this.postForm = fb.group({
       title: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(60)]],
@@ -139,14 +136,8 @@ export class PublishingPostComponent implements OnInit {
             newPost as any,
             this.authService.getAuthorization()
           );
-          if (newPost.public == true) {
-            await this.sitemapEditorService.addUriOn('./posts-sitemap.txt', `post/${this.editingPost._id}`);
-          }
         } else {
           const post = await this.postService.insertOne(newPost as any, this.authService.getAuthorization());
-          if (post.public) {
-            await this.sitemapEditorService.addUriOn('./posts-sitemap.txt', `post/${post._id}`);
-          }
         }
         this.router.navigate(['/']);
       } catch (exception) {

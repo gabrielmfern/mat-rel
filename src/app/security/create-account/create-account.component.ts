@@ -1,12 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ControlInputComponent } from 'src/app/_shared/mrl-forms/control-input/control-input.component';
 
 import { AuthService } from 'src/app/_shared/services/auth.service';
 import { MetaService } from 'src/app/_shared/services/meta.service';
-import { SitemapEditorService } from 'src/app/_shared/services/sitemap-editor.service';
 
 @Component({
   selector: 'mrl-create-account',
@@ -26,7 +24,6 @@ export class CreateAccountComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private metaService: MetaService,
-    private sitemapEditor: SitemapEditorService
   ) {
     this.createAccountForm = fb.group({
       name: ['', [Validators.required]],
@@ -57,7 +54,6 @@ export class CreateAccountComponent implements OnInit {
         message: string;
       } = await this.auth.signUp(name, email, password) as any;
       this.loading = false;
-      await this.sitemapEditor.addUriOn('./users-sitemap.txt', `user/${result.userId}`);
       this.router.navigate(['/security/login']);
     } catch (exception) {
       this.loading = false;
