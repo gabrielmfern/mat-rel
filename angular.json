@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/mat-rel",
+            "outputPath": "dist/mat-rel/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -111,6 +111,65 @@
               "./node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/mat-rel/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "mat-rel:build:development",
+              "serverTarget": "mat-rel:server:development"
+            },
+            "production": {
+              "browserTarget": "mat-rel:build:production",
+              "serverTarget": "mat-rel:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "mat-rel:build:production",
+              "serverTarget": "mat-rel:server:production"
+            },
+            "development": {
+              "browserTarget": "mat-rel:build:development",
+              "serverTarget": "mat-rel:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

@@ -16,7 +16,7 @@ import { FootbarComponent } from './parts/footbar/footbar.component';
 @NgModule({
   declarations: [AppComponent, NavbarComponent, FootbarComponent],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
