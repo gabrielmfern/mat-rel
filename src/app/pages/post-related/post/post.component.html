@@ -6,7 +6,7 @@
       <span class="float-end">
         <button
           class="btn"
-          [ngClass]="{ 'no-pointer': authService.isLoggedIn || isAuthor() }"
+          [ngClass]="{ 'no-pointer': !authService.isLoggedIn || isAuthor() || hasAgreed() }"
           [disabled]="isAuthor() || hasAgreed()"
           (click)="agree()"
         >
@@ -15,7 +15,7 @@
         </button>
         <button
           class="btn"
-          [ngClass]="{ 'no-pointer': authService.isLoggedIn || isAuthor() }"
+          [ngClass]="{ 'no-pointer': authService.isLoggedIn || isAuthor() || hasDisagreed() }"
           [disabled]="isAuthor() || hasDisagreed()"
           (click)="disagree()"
         >
@@ -28,8 +28,15 @@
       <p [mathjax]="post?.text"></p>
     </div>
     <div class="card-footer d-flex">
-      <button class="btn btn-secondary-rel" [routerLink]="['/']"><i class="fa fa-angle-left"></i> Back</button>
-      <p class="ms-auto mt-auto mb-auto"><a class="btn btn-link-rel c-pointer" [routerLink]="['/user/' + post?.user?._id]">{{ post?.user?.name }}</a> {{ post?.publishingDate | date }}</p>
+      <button class="btn btn-secondary-rel" [routerLink]="['/']">
+        <i class="fa fa-angle-left"></i> Back
+      </button>
+      <p class="ms-auto mt-auto mb-auto">
+        <a class="btn btn-link-rel c-pointer" [routerLink]="['/user/' + post?.user?._id]">{{
+          post?.user?.name
+        }}</a>
+        {{ post?.publishingDate | date }}
+      </p>
     </div>
     <mrl-commentary-list [post]="post"></mrl-commentary-list>
   </div>

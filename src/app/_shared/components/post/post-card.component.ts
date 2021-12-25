@@ -20,11 +20,11 @@ export class PostCardComponent implements OnInit {
   loggedUser: User;
   loading = false;
 
-  constructor(private router: Router, public authService: AuthService, private postService: PostService) {}
+  constructor(private router: Router, public authService: AuthService, private postService: PostService) { }
 
   async ngOnInit() {
-    if (this.authService.isLoggedIn)
-      this.loggedUser = this.authService.getLoggedUser();
+    // if (this.authService.isLoggedIn)
+    //   this.loggedUser = this.authService.getLoggedUser();
   }
 
   editPost() {
@@ -48,6 +48,7 @@ export class PostCardComponent implements OnInit {
 
   isLoggedUserAuthor(): boolean {
     if (!this.authService.isLoggedIn) return false;
+    if (typeof this.loggedUser === 'undefined') this.loggedUser = this.authService.getLoggedUser();
     return this.post.user._id == this.loggedUser._id;
   }
 }
