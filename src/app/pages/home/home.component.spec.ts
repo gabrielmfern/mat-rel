@@ -8,19 +8,21 @@ describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     const authServiceStub = () => ({ getAuthorization: () => ({}) });
     const postServiceStub = () => ({
       find: (object, arg) => ({ then: () => ({}) })
     });
-    TestBed.configureTestingModule({
+
+    await TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [HomeComponent],
       providers: [
         { provide: AuthService, useFactory: authServiceStub },
         { provide: PostService, useFactory: postServiceStub }
       ]
-    });
+    }).compileComponents();
+
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
   });
