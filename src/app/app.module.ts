@@ -5,9 +5,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MathjaxModule } from 'mathjax-angular';
+import { TransferHttpCacheModule } from '@nguniversal/common';
 
 import { AppRoutingModule } from './app-routing.module';
+import { MathjaxModule } from './_shared/mathjax/mathjax.module';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './parts/navbar/navbar.component';
@@ -21,9 +22,10 @@ import { FootbarComponent } from './parts/footbar/footbar.component';
     HttpClientModule,
     BrowserAnimationsModule,
     NgbModule,
+    TransferHttpCacheModule,
     MathjaxModule.forRoot()
   ],
-  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
+  providers: [/*{ provide: LocationStrategy, useClass: HashLocationStrategy }*/],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

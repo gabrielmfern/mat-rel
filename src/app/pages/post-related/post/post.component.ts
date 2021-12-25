@@ -6,7 +6,6 @@ import { PostService } from 'src/app/_shared/services/cruds/post.service';
 
 import { Post } from 'src/app/_shared/modals/post.modal';
 import { User } from 'src/app/_shared/modals/user.modal';
-import { Meta, Title } from '@angular/platform-browser';
 import { MetaService } from 'src/app/_shared/services/meta.service';
 
 @Component({
@@ -33,22 +32,20 @@ export class PostComponent implements OnInit {
   async ngOnInit() {
     if (this.authService.isLoggedIn) this.loggedUser = this.authService.getLoggedUser();
 
-    this.route.params.subscribe(async (params) => {
-      if (!params.id && this.postId != '1') {
-        this.router.navigate(['/']);
-        return;
-      }
+    const id = this.route.snapshot.params.id;
 
-      this.loading = true;
-      try {
-        this.postId = params.id;
-        await this.loadPost(params.id);
-      } catch (exception) {
-        console.error(exception);
-        this.router.navigate(['/']);
-      }
-      this.loading = false;
-    });
+    if (!id && this.postId != '1') {
+      this.router.navigate(['/']);
+      return;
+    }
+
+    try {
+      this.postId = id;
+      await this.loadPost(id);
+    } catch (exception) {
+      console.error(exception);
+      this.router.navigate(['/']);
+    }
   }
 
   isAuthor() {

@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MathjaxModule } from 'mathjax-angular';
 
 import { LoaderModule } from 'src/app/_shared/components/loader/loader.module';
+import { MathjaxModule } from '../../mathjax/mathjax.module';
 
 import { PostCardComponent } from './post-card.component';
 

@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Meta, Title } from '@angular/platform-browser';
 
-import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/_shared/services/auth.service';
 import { MetaService } from 'src/app/_shared/services/meta.service';
 import { PostsDisplayComponent } from '../../_shared/components/posts-display/posts-display.component';

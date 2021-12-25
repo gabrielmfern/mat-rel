@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MathjaxModule } from 'mathjax-angular';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { LoaderModule } from 'src/app/_shared/components/loader/loader.module';
@@ -11,6 +10,7 @@ import { PostCardModule } from '../../../_shared/components/post/post-card.modul
 import { PublishingPostRoutingModule } from './publishing-post-routing.module';
 
 import { PublishingPostComponent } from './publishing-post.component';
+import { MathjaxModule } from 'src/app/_shared/mathjax/mathjax.module';
 
 @NgModule({
   declarations: [PublishingPostComponent],

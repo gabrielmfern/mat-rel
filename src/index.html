@@ -5,9 +5,9 @@
     <title>MatRel</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta property="og:site_name" content="MatRel">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://mat-rel.com/favicon.ico">
+    <meta property="og:site_name" content="MatRel" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://mat-rel.com/favicon.ico" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
@@ -17,16 +17,14 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V7TEH9BV37"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+    <script id="mathjax-script" type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/startup.js" async></script>
+    <script id="mathjax-config-script" type="text/javascript">
+      MathJax = {
+        loader: { load: ['output/svg', '[tex]/require', '[tex]/ams'] },
+        tex: { inlineMath: [['$', '$']], packages: ['base', 'require', 'ams'] },
+        svg: { fontCache: 'global' }
+      };
     </script>
-    <!-- <script
-      id="MathJax-script"
-      async
-      src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js"
-    ></script> -->
   </head>
   <body class="mat-typography">
     <mrl-root></mrl-root>
