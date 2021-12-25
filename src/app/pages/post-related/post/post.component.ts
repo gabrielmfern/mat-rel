@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AuthService } from 'src/app/_shared/services/auth.service';
@@ -7,6 +7,7 @@ import { PostService } from 'src/app/_shared/services/cruds/post.service';
 import { Post } from 'src/app/_shared/modals/post.modal';
 import { User } from 'src/app/_shared/modals/user.modal';
 import { MetaService } from 'src/app/_shared/services/meta.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'mrl-post',
@@ -19,19 +20,16 @@ export class PostComponent implements OnInit {
   post: Post;
   loading = false;
 
-  loggedUser: Partial<User>;
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private metaService: MetaService,
     private postService: PostService,
+    @Inject(PLATFORM_ID) private platformId: Object,
     public authService: AuthService
-  ) {}
+  ) { }
 
   async ngOnInit() {
-    if (this.authService.isLoggedIn) this.loggedUser = this.authService.getLoggedUser();
-
     const id = this.route.snapshot.params.id;
 
     if (!id && this.postId != '1') {
@@ -48,20 +46,26 @@ export class PostComponent implements OnInit {
     }
   }
 
+  get loggedUser() {
+    if (this.authService.isLoggedIn) return this.authService.getLoggedUser();
+
+    return undefined;
+  }
+
   isAuthor() {
-    if (!this.loggedUser || !this.post) return false;
+    if (!this.loggedUser || !this.post || !isPlatformBrowser(this.platformId)) return false;
 
     return this.loggedUser._id == this.post.user._id;
   }
 
   hasAgreed() {
-    if (!this.loggedUser || !this.post) return true;
+    if (!this.loggedUser || !this.post || !isPlatformBrowser(this.platformId)) return true;
 
     return typeof this.post.agreed.find((u) => u._id == this.loggedUser._id) != 'undefined';
   }
 
   hasDisagreed() {
-    if (!this.loggedUser || !this.post) return true;
+    if (!this.loggedUser || !this.post || !isPlatformBrowser(this.platformId)) return true;
 
     return typeof this.post.disagreed.find((u) => u._id == this.loggedUser._id) != 'undefined';
   }
@@ -73,7 +77,7 @@ export class PostComponent implements OnInit {
     });
     this.metaService.setTag('description', this.post.text.slice(0, 100));
     this.metaService.setTag('author', this.post.user.name);
-    this.metaService.setTag('url', `https://mat-rel.com/#/post/${this.post._id}`);
+    this.metaService.setTag('url', `https://mat-rel.com/post/${this.post._id}`);
     this.metaService.setTag(
       'keywords',
       'matrel, math discoveries, math, mathematics, discoveries, mat rel'

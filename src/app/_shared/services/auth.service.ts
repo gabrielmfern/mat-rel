@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 
 import jwtDecode from 'jwt-decode';
 import { first } from 'rxjs/operators';
@@ -12,24 +13,35 @@ import { ApiService } from './api.service';
   providedIn: 'root'
 })
 export class AuthService {
-  isLoggedIn = false;
+  private cacheedLoggedIn: boolean;
 
-  constructor(private api: ApiService) {
-    this.verifyIfLogged().then((result) => {
-      this.isLoggedIn = result;
-    });
+  constructor(private api: ApiService, @Inject(PLATFORM_ID) private platformId: Object) {
+    // this.verifyIfLogged().then((result) => {
+    //   this.isLoggedIn = result;
+    // });
   }
 
   getLoggedUser(): User {
     return jwtDecode(localStorage.getItem('authentication'));
   }
 
+  get isLoggedIn(): boolean {
+    if (!isPlatformBrowser(this.platformId)) return false;
+
+    if (typeof this.cacheedLoggedIn === 'undefined') {
+      this.verifyIfLogged().then(valid => this.cacheedLoggedIn = valid);
+      return false;
+    }
+
+    return this.cacheedLoggedIn
+  }
+
   async verifyIfLogged(): Promise<boolean> {
-    const a = await this.api.get<{ valid: boolean }>(
+    const result = await this.api.get<{ valid: boolean; }>(
       '/security/verify',
       localStorage.getItem('authentication')
     );
-    return a.valid;
+    return result.valid;
   }
 
   getAuthorization(): string {

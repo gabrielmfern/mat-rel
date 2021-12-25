@@ -36,7 +36,7 @@ export class CreateAccountComponent implements OnInit {
   ngOnInit() {
     this.metaService.setTag('description', 'The new land of discoveries');
     this.metaService.setTag('author', 'Gabriel Miranda');
-    this.metaService.setTag('url', 'https://mat-rel.com/#/security/create-account');
+    this.metaService.setTag('url', 'https://mat-rel.com/security/create-account');
     this.metaService.setTag(
       'keywords',
       'matrel, math discoveries, math, mathematics, discoveries, gabriel miranda, mat rel, signup, sign up, register, create account, new account'

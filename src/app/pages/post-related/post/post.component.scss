@@ -2,3 +2,11 @@
   margin-top: 10%;
   margin-bottom: 10%;
 }
+
+.btn {
+  cursor: pointer;
+}
+
+.no-pointer {
+  cursor: default !important;
+}
