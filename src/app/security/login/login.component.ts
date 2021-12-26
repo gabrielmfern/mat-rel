@@ -51,8 +51,8 @@ export class LoginComponent implements OnInit {
     try {
       this.loading = true;
       await this.auth.signIn(email, password);
+      await this.router.navigate(['/']);
       window.location.reload();
-      this.router.navigate(['/']);
       this.loading = false;
     } catch (exception) {
       this.loading = false;
