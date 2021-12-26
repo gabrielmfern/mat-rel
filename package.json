@@ -1,10 +1,10 @@
 {
   "name": "mat-rel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "ng": "ng",
     "start": "npm run serve:ssr",
-    "build": "npm run build:ssr",
+    "build": "npm run build:ssr && node sitemapGenerator",
     "start:proxy": "ng serve --proxy-config proxy.config.js",
     "start:dev": "npm start --sourceMap=false",
     "optmizecss": "gulp --gulpfile build-scripts/optimize-css.gulpfile.js",
@@ -44,6 +44,7 @@
     "jwt-decode": "^3.1.2",
     "localstorage-polyfill": "^1.0.1",
     "rxjs": "~6.6.0",
+    "ts-node": "^10.4.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
   },
