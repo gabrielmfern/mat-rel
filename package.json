@@ -9,7 +9,7 @@
     "start:dev": "npm start --sourceMap=false",
     "optmizecss": "gulp --gulpfile build-scripts/optimize-css.gulpfile.js",
     "build-website": "ng build --configuration production --aot --output-hashing=all --build-optimizer --optimization --base-href /",
-    "build-website2": "ng build --configuration production --aot --outputHashing=all  --build-optimizer --named-chunks --extract-css=true",
+    "build-website-2": "ng build --configuration production --aot --outputHashing=all  --build-optimizer --named-chunks --extract-css=true",
     "test": "ng test",
     "test:common": "ng test --browsers Chrome,Firefox",
     "test:ci": "ng test --watch=true --reporters junit --browsers ChromeHeadless",
