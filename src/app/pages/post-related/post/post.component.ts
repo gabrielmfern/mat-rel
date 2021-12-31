@@ -75,7 +75,7 @@ export class PostComponent implements OnInit {
     this.post = await this.postService.findOne({
       _id: id
     });
-    this.metaService.setTag('description', this.post.text.slice(0, 100));
+    this.metaService.setTag('description', this.post.text);
     this.metaService.setTag('author', this.post.user.name);
     this.metaService.setTag('url', `https://mat-rel.com/post/${this.post._id}`);
     this.metaService.setTag(

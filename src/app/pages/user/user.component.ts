@@ -34,7 +34,7 @@ export class UserComponent implements OnInit {
           })
         this.user = user;
         this.loading = false;
-        this.metaService.setTag('description', 'The profile of ' + this.user.name + ' on MatRel');
+        this.metaService.setTag('description', this.user.bio);
         this.metaService.setTag('author', 'Gabriel Miranda');
         this.metaService.setTag(
           'keywords',
