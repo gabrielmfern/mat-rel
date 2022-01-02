@@ -1,9 +1,9 @@
 {
   "name": "mat-rel",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "scripts": {
     "ng": "ng",
-    "start": "npm run serve:ssr && node sitemapGenerator",
+    "start": "node sitemapGenerator && npm run serve:ssr",
     "build": "npm run build:ssr",
     "start:proxy": "ng serve --proxy-config proxy.config.js",
     "start:dev": "npm start --sourceMap=false",
