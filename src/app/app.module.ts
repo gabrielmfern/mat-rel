@@ -9,6 +9,7 @@ import { TransferHttpCacheModule } from '@nguniversal/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MathjaxModule } from './_shared/mathjax/mathjax.module';
+import { CrudsServiceModule } from './_shared/services/cruds/cruds-services.module';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './parts/navbar/navbar.component';
@@ -22,6 +23,7 @@ import { FootbarComponent } from './parts/footbar/footbar.component';
     HttpClientModule,
     BrowserAnimationsModule,
     NgbModule,
+    CrudsServiceModule,
     TransferHttpCacheModule,
     MathjaxModule.forRoot()
   ],
