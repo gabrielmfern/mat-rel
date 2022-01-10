@@ -142,6 +142,10 @@ body {
   background-color: $danger-color;
 }
 
+.hide-dropdown-icon.dropdown-toggle::after {
+  display: none;
+}
+
 .accent {
   background: $accent-color;
   background-color: $accent-color;
