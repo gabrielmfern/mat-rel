@@ -14,7 +14,7 @@
     </li>
   </ul>
   <div class="ms-auto me-md-5">
-    <ng-container *ngIf="this.authService.isLoggedIn">
+    <ng-container *ngIf="isLoggedIn">
       <div class="d-inline-block mx-1" ngbDropdown display="dynamic" placement="bottom-right">
         <button class="btn btn-dark hide-dropdown-icon" ngbDropdownToggle (click)="onNotificationsRead()">
           <i class="fa fa-bell"> </i>
@@ -41,7 +41,7 @@
       </div>
     </ng-container>
 
-    <ng-container *ngIf="!this.authService.isLoggedIn">
+    <ng-container *ngIf="!isLoggedIn">
       <a class="btn btn-rel mx-1" type="button" [routerLink]="['/security/create-account']">Sign up</a>
       <a class="btn btn-outline-rel text-white" type="button" [routerLink]="['/security/login']">Sign In</a>
     </ng-container>

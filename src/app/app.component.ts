@@ -1,7 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 
 import { filter } from 'rxjs/operators';
 
@@ -13,7 +12,10 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private router: Router, @Inject(DOCUMENT) private document: Document) {}
+  constructor(
+    private router: Router,
+    @Inject(DOCUMENT) private document: Document
+  ) {}
 
   ngOnInit() {
     if (environment.production) {

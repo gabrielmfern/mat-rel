@@ -1,10 +1,11 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Router } from '@angular/router';
 
 import jwtDecode from 'jwt-decode';
 import { first } from 'rxjs/operators';
 
-import { ApiError } from '../modals/api-error.modal';
+import { ApiUsualResponse } from '../modals/api-error.modal';
 import { User } from '../modals/user.modal';
 
 import { ApiService } from './api.service';
@@ -14,12 +15,13 @@ import { ApiService } from './api.service';
 })
 export class AuthService {
   private cacheedLoggedIn: boolean;
+  private cacheedPromise: Promise<boolean>;
 
-  constructor(private api: ApiService, @Inject(PLATFORM_ID) private platformId: Object) {
-    // this.verifyIfLogged().then((result) => {
-    //   this.isLoggedIn = result;
-    // });
-  }
+  constructor(
+    private api: ApiService,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private router: Router
+  ) { }
 
   getLoggedUser(): User {
     return jwtDecode(localStorage.getItem('authentication'));
@@ -28,19 +30,31 @@ export class AuthService {
   get isLoggedIn(): boolean {
     if (!isPlatformBrowser(this.platformId)) return false;
 
-    if (typeof this.cacheedLoggedIn === 'undefined') {
-      this.verifyIfLogged().then(valid => this.cacheedLoggedIn = valid);
+    if (typeof this.cacheedLoggedIn === 'undefined' && !this.cacheedPromise) {
+      this.cacheedPromise = this.verifyIfLogged().then((valid) => {
+        this.cacheedLoggedIn = valid;
+        if (this.cacheedLoggedIn) {
+          const user = this.getLoggedUser();
+          if (!user.verified && !this.router.url.includes('/security/verify-account')) {
+            this.router.navigate(['/security/verify-account']);
+          }
+        }
+        return valid;
+      });
       return false;
     }
 
-    return this.cacheedLoggedIn
+    return this.cacheedLoggedIn;
   }
 
   async verifyIfLogged(): Promise<boolean> {
-    const result = await this.api.get<{ valid: boolean; }>(
+    const result = await this.api.get<{ valid: boolean; updatedPayload?: string; }>(
       '/security/verify',
       localStorage.getItem('authentication')
     );
+    if (result.valid) {
+      localStorage.setItem('authentication', result.updatedPayload)
+    }
     return result.valid;
   }
 
@@ -58,7 +72,7 @@ export class AuthService {
     bio: string,
     currentPassword: string,
     newPassword?: string
-  ): Promise<void | ApiError> {
+  ): Promise<void | ApiUsualResponse> {
     try {
       await this.api.post<void>(
         '/security/update-account',
@@ -80,7 +94,7 @@ export class AuthService {
     name: string,
     email: string,
     password: string
-  ): Promise<{ code: number; userId: string; message: string } | ApiError> {
+  ): Promise<{ code: number; userId: string; message: string } | ApiUsualResponse> {
     try {
       return await this.api.post<{ code: number; userId: string; message: string }>(
         '/security/create-account',
@@ -95,7 +109,30 @@ export class AuthService {
     }
   }
 
-  async signIn(email: string, password: string): Promise<string | ApiError> {
+  async verifyEmailByToken(token: string): Promise<ApiUsualResponse> {
+    try {
+      const result = await this.api.get<ApiUsualResponse>(`/security/verify-account?token=${token}`);
+
+      return result;
+    } catch (exception) {
+      return exception;
+    }
+  }
+
+  async resendEmailVerification(): Promise<ApiUsualResponse> {
+    try {
+      const result = await this.api.get<ApiUsualResponse>(
+        `/security/send-email-verification`,
+        this.getAuthorization()
+      );
+
+      return result;
+    } catch (exception) {
+      return exception;
+    }
+  }
+
+  async signIn(email: string, password: string): Promise<string | ApiUsualResponse> {
     try {
       const result = await this.api.post<{ authorization: string }>('/security/sign', {
         email,
