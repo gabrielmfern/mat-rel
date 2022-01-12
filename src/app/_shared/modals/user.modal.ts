@@ -3,5 +3,6 @@ export class User {
   name: string;
   bio: string;
   email: string;
+  verified: boolean;
   password?: string;
 }

@@ -47,7 +47,6 @@ const routes: Routes = [
   {
     path: 'security',
     loadChildren: () => import('./security/security.module').then((m) => m.SecurityModule),
-    canActivate: [LoggedOutGuard]
   }
 ];
 

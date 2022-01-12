@@ -1,4 +1,4 @@
-export class ApiError {
+export class ApiUsualResponse {
   code: number;
   message: string;
 }

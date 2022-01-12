@@ -1,0 +1,14 @@
+<mrl-loader [loading]="loading">
+  <div class="container text-center">
+    <ng-container *ngIf="!token">
+      <h3>You must verify your email address!</h3>
+      <p>You have received an email in your inbox, click the button on it and your email will be verified.</p>
+      <p>This is needed before you can use your account properly to avoid people with more than one account.</p>
+      <button class="btn btn-rel" (click)="resendEmail()">Resend Email</button>
+    </ng-container>
+    <ng-container *ngIf="token">
+      <h1 class="rel"><i class="fa fa-check"></i></h1>
+      <h3>Your account has been verified successfully!</h3>
+    </ng-container>
+  </div>
+</mrl-loader>

@@ -1,11 +1,12 @@
 import { environment } from 'src/environments/environment';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/_shared/services/auth.service';
 import { NotificationService } from 'src/app/_shared/services/cruds/notification.service';
 
 import { Notification } from 'src/app/_shared/modals/notification.modal';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'mrl-navbar',
@@ -18,7 +19,8 @@ export class NavbarComponent implements AfterViewInit {
   constructor(
     public authService: AuthService,
     private router: Router,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   async ngAfterViewInit() {
@@ -50,5 +52,11 @@ export class NavbarComponent implements AfterViewInit {
 
   isInProduction() {
     return environment.production;
+  }
+
+  get isLoggedIn() {
+    if (!isPlatformBrowser(this.platformId)) return false;
+
+    return this.authService.isLoggedIn;
   }
 }
