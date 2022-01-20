@@ -1,6 +1,6 @@
 {
   "name": "mat-rel",
-  "version": "1.2.3",
+  "version": "1.3.0",
   "scripts": {
     "ng": "ng",
     "start": "npm run serve:ssr",
